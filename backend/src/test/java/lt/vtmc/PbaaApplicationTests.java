@@ -1,4 +1,4 @@
-package lt.vtmc.pbaa;
+package lt.vtmc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
