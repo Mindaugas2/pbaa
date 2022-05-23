@@ -7,9 +7,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as bootstrap from 'bootstrap';
 import $ from "jquery";
 
-export default function EditCategoryModal({ id, name, forceRender, setForceRender }) {
+export default function EditExpenseLimitModal({ id, categoryId, amount, forceRender, setForceRender, allCategory }) {
     const currentUser = AuthService.getCurrentUser();
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
+
+    // This is used to figure out today's date, and format it accordingly
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
 
     const hideModal = () => {
         const myModalEl = document.getElementById('id' + id);
@@ -19,7 +26,7 @@ export default function EditCategoryModal({ id, name, forceRender, setForceRende
 
     const onSubmit = async (data) => {
         const response = await fetch(
-            "http://localhost:8080/api/categories/",
+            "http://localhost:8080/api/limits/",
             {
                 method: "PUT",
                 headers: {
@@ -28,26 +35,27 @@ export default function EditCategoryModal({ id, name, forceRender, setForceRende
                 },
                 body: JSON.stringify({
                     "id": id,
-                    "name": data.name
+                    "categoryId": data.categoryId,
+                    "limit": data.amount
                 })
             }
         )
 
         if (response.status === 200) {
-            successMessage('Pakeitimai išsaugoti');
+            successMessage();
             hideModal();
         }
         else {
-            (errorMessage('Tokia išlaidų kategorija jau įvesta'))
+            (errorMessage('Klaida! Išliadų limitas šiai kategorijai jau nustatytas.'))
         }
-        
+
         setForceRender(!forceRender)
     }
 
     // Popup message configuration
     toast.configure()
-    const successMessage = (msg) => {
-        toast.success(msg, {
+    const successMessage = () => {
+        toast.success('Pakeitimai išsaugoti', {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
             theme: "colored",
@@ -104,20 +112,36 @@ export default function EditCategoryModal({ id, name, forceRender, setForceRende
                         </div>
 
                         <form onSubmit={handleSubmit(onSubmit)} className="modal-body">
+                          
+                            <select {...register("categoryId",
+                                        {
+                                            required: true,
+                                        })
+                                    }
+                                    className="form-control add__description"
+                                    type="text"
+                                    placeholder="Kategorija"
+                                    defaultValue={categoryId}
+                                    >
+                                    {allCategory.map((option) => (
+                                    <option value={option.id}>{option.name}</option>
+                                         ))}
+                                </select>
                             <input
-                                {...register("name",
+                                {...register("amount",
                                     {
                                         required: true,
-                                        minLength: 3
+                                        min: 1
                                     })
                                 }
-                                type="text"
-                                className="form-control add__description"
-                                placeholder="Kategorijos pavadinimas"
-                                defaultValue={name}
+                                type="number"
+                                className="form-control add__value mt-2"
+                                placeholder="Kiekis"
+                                step="0.01"
+                                defaultValue={amount}
                             />
-                            {errors?.name?.type === "required" && <p>Laukas negali būti tuščias</p>}
-                            {errors?.name?.type === "minLength" && <p>Aprašymas turi būti sudarytas iš bent 3 simbolių</p>}
+                            {errors?.amount?.type === "required" && <p>Laukas negali būti tuščias</p>}
+                            {errors?.amount?.type === "min" && <p>Mažiausias įvestinų pajamų kiekis yra 1 &euro;</p>}
 
                             <div className="modal-footer">
                                 <button
@@ -129,8 +153,7 @@ export default function EditCategoryModal({ id, name, forceRender, setForceRende
                                 </button>
                                 <button
                                     type="submit"
-                                    className="btn btn-primary"
-
+                                    className="btn btn-primary"                                  
                                 >
                                     Išsaugoti
                                 </button>

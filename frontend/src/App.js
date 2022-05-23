@@ -10,6 +10,7 @@ import BoardAdmin from "./components/BoardAdmin";
 import HomeLoggedIn from "./components/HomeLoggedIn";
 import Income from "./components/Income";
 import Expense from "./components/Expense";
+import ExpenseLimit from "./components/ExpenseLimit";
 import Category from "./components/Category";
 import "./components/FontAwesomeIcon/Icons";
 import './App.css';
@@ -52,9 +53,10 @@ const App = () => {
             {/* <Route path="/mod" element={<BoardModerator />} /> */}
             <Route path="/admin" element={<BoardAdmin />} />
             {/* <Route path="/register-success" element={<RegisterSuccess />} /> */}
-            <Route path="/welcome" element={<HomeLoggedIn />} />
+            <Route path="/statistics" element={<HomeLoggedIn />} />
             <Route path="/income" element={<Income />} />
             <Route path="/expense" element={<Expense />} />
+            <Route path="/limits" element={<ExpenseLimit />} />
             <Route path="/category" element={<Category />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contacts" element={<Contacts />} />
