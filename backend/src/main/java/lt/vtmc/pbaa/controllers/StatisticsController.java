@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -25,4 +26,10 @@ public class StatisticsController {
     public ResponseEntity<List<ExpenseUnitStatistic>> getAllExpensesStatisticsByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(this.statisticsService.getAllExpenseStatisticByUser(id));
     }
+
+    @GetMapping("/user/income/{id}")
+    public ResponseEntity<Map<String, Integer>> getAllIncomesStatisticsByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(this.statisticsService.getAllIncomeStatisticByUser(id));
+    }
+
 }
