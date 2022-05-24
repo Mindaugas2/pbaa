@@ -13,9 +13,7 @@ export default function HomeLoggedIn() {
     const [income, setIncome] = useState([]);
     const [statistics, setStatistics] = useState([]);
 
-
     // const chartIncomeAmount = income.map(x => x.amount);
-    // console.log(chartIncomeAmount)
     // const chartIncomeNames = income.map(x => x.incomeName);
 
     const chartIncomeAmount = Object.values(income);
@@ -45,25 +43,6 @@ export default function HomeLoggedIn() {
     }
 
     // Fetch all user's income from database to display down below
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const response = await fetch(`http://localhost:8080/api/income/user/${currentUser.id}`,
-    //             {
-    //                 method: "GET",
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': `Bearer ${currentUser.accessToken}`
-    //                 }
-    //             });
-
-    //         const data = await response.json();
-    //         setIncome(data);
-    //     };
-
-    //     fetchData();
-    // }, []);
-
-    // Fetch current user's this month's all income
     // useEffect(() => {
     //     const fetchData = async () => {
     //         const response = await fetch(`http://localhost:8080/api/income/user/${currentUser.id}`,
