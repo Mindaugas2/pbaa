@@ -7,7 +7,6 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import ProgressBar from "@ramonak/react-progress-bar";
 
-
 export default function HomeLoggedIn() {
     const currentUser = AuthService.getCurrentUser();
 
@@ -15,8 +14,13 @@ export default function HomeLoggedIn() {
     const [statistics, setStatistics] = useState([]);
 
 
-    const chartIncomeAmount = income.map(x => x.amount);
-    const chartIncomeNames = income.map(x => x.incomeName);
+    // const chartIncomeAmount = income.map(x => x.amount);
+    // console.log(chartIncomeAmount)
+    // const chartIncomeNames = income.map(x => x.incomeName);
+
+    const chartIncomeAmount = Object.values(income);
+    console.log(chartIncomeAmount)
+    const chartIncomeNames = Object.keys(income);
 
     const chartLimitAmount = statistics.map(x => x.limit);
     const chartLimitNames = statistics.map(x => x.category.name);
@@ -29,7 +33,7 @@ export default function HomeLoggedIn() {
     const chartIncomeColorsBorder = [];
 
     // Generates random RGB values for the displayed incomes
-    for (let i = 1; i <= income.length; i++) {
+    for (let i = 1; i <= chartIncomeNames.length; i++) {
         const r = randomBetween(0, 200);
         const g = randomBetween(0, 200);
         const b = randomBetween(0, 200);
@@ -60,9 +64,27 @@ export default function HomeLoggedIn() {
     // }, []);
 
     // Fetch current user's this month's all income
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await fetch(`http://localhost:8080/api/income/user/${currentUser.id}`,
+    //             {
+    //                 method: "GET",
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${currentUser.accessToken}`
+    //                 }
+    //             });
+
+    //         const data = await response.json();
+    //         setIncome(data);
+    //     };
+
+    //     fetchData();
+    // }, []);
+
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://localhost:8080/api/income/user/${currentUser.id}`,
+            const response = await fetch(`http://localhost:8080/api/statistics/user/income/${currentUser.id}`,
                 {
                     method: "GET",
                     headers: {
@@ -77,7 +99,7 @@ export default function HomeLoggedIn() {
 
         fetchData();
     }, []);
-
+    
 
     ChartJS.register(ArcElement, Tooltip, Legend);
     const data = {
