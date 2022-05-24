@@ -44,10 +44,11 @@ public class ExpenseService {
         User user = userRepository.findByEmail(currentPrincipalEmail).orElse(null);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         ExpensesCategory expenseCategory = expensesCategoryRepository.getById(expenseInsertRequest.getCategoryId());
+        String expenseName = expenseInsertRequest.getExpenseName();
         Expense expense = new Expense(
                 user,
                 expenseCategory,
-                expenseInsertRequest.getExpenseName(),
+                expenseName.substring(0, 1).toUpperCase() + expenseName.substring(1),
                 LocalDate.parse(expenseInsertRequest.getDate(), formatter),
                 BigDecimal.valueOf(Double.parseDouble(expenseInsertRequest.getAmount())));
         expenseRepository.save(expense);
@@ -71,14 +72,16 @@ public class ExpenseService {
             throw new RuntimeException("User has not this income");
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        updatingExpense.setExpenseName(expenseUpdateRequest.getExpenseName());
+        String expenseName = expenseUpdateRequest.getExpenseName();
+        String updatingExpenseName = expenseName.substring(0, 1).toUpperCase() + expenseName.substring(1);
+        updatingExpense.setExpenseName(updatingExpenseName);
         updatingExpense.setExpensesCategory(expensesCategoryRepository.getById(expenseUpdateRequest.getCategoryId()));
         updatingExpense.setDate(LocalDate.parse(expenseUpdateRequest.getDate(), formatter));
         updatingExpense.setAmount(BigDecimal.valueOf(Double.parseDouble(expenseUpdateRequest.getAmount())));
         expenseRepository.save(updatingExpense);
         return new ExpenseResponse(
                 updatingExpense.getId(),
-                expenseUpdateRequest.getExpenseName(),
+                updatingExpenseName,
                 expenseUpdateRequest.getCategoryId(),
                 expenseUpdateRequest.getDate(),
                 expenseUpdateRequest.getAmount());
