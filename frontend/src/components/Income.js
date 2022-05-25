@@ -10,7 +10,7 @@ import EditIncomeModal from './EditIncomeModal';
 import DeleteModal from './DeleteModal';
 import ReactPaginate from 'react-paginate';
 import Table from 'react-bootstrap/Table';
-import moment from 'moment';
+import Pagination from '../components/Pagination';
 
 // This code copypasted from: https://codepen.io/fido123/pen/xzvxNw
 // JavaScript is not included in this code, only html and css
