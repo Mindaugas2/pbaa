@@ -51,8 +51,12 @@ public class ExpenseController {
 	public ResponseEntity<Page<Expense>> getAllIncomeByUserIdPage(@RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize) {
 		return ResponseEntity.ok().body(this.expenseService.getAllExpenseByUserPage(offset, pageSize));
 	}
-	@GetMapping("/userDate")// /api/income/userDate2?field=date&offset=0&pageSize=3  to test
+	@GetMapping("/userDate")// /api/expense/userDate2?date1=date1&date2=date2&category=category&offset=0&pageSize=3  to test
 	public ResponseEntity<Page<Expense>> getAllExpenseByUserIdAndMonth(@RequestParam("date1") String date1, @RequestParam("date2") String date2,  @RequestParam("category") String category, @RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize) {
 		return ResponseEntity.ok().body(this.expenseService.findByUserAndDateAndExpensesCategory(date1, date2, category, offset, pageSize));
+	}
+	@GetMapping("/userCategory")// /api/expense/userDate2?date1=date1&date2=date2&category=category&offset=0&pageSize=3  to test
+	public ResponseEntity<Page<Expense>> getAllExpenseByUserIdAndMonth(String category, @RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize) {
+		return ResponseEntity.ok().body(this.expenseService.findByUserAndExpensesCategory(category, offset, pageSize));
 	}
 }

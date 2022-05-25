@@ -13,6 +13,7 @@ import ReactPaginate from "react-paginate";
 import Table from "react-bootstrap/Table";
 import { Pagination } from "react-bootstrap";
 import ReactCSV from "./ReactCSV";
+import Accordion from 'react-bootstrap/Accordion'
 
 // This code copypasted from: https://codepen.io/fido123/pen/xzvxNw
 // JavaScript is not included in this code, only html and css
@@ -209,6 +210,52 @@ export default function Expense() {
     //window.scrollTo(0, 0)
   };
 
+
+  //irasu filtravimas
+  
+  let today2 = new Date();
+  const dd2 = String(today2.getDate()).padStart(2, "0") - 1;
+  const mm2 = String(today2.getMonth() + 1).padStart(2, "0");
+  const yyyy2 = today2.getFullYear();
+  today2 = yyyy2 + "-" + mm2 + "-" + dd2;
+  
+  let date1 = today2; // yesterdays date
+  let date2 = today; // todays date
+  
+  let category = null;
+
+  const fetchExpenseWithDate = async (date1, date2, category, currentPage) => {
+    const res = await fetch(
+      `http://localhost:8080/api/expense/userDate2?date1=${date1}&date2=${date2}&category=${category}&offset=${currentPage}&pageSize=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${currentUser.accessToken}`,
+        },
+      }
+    );
+    const data = await res.json();
+
+    return data.content;
+  };
+
+  const fetchExpenseWithCategory= async (category, currentPage) => {
+    const res = await fetch(
+      `http://localhost:8080/api/expense/userDate2?category=${category}&offset=${currentPage}&pageSize=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${currentUser.accessToken}`,
+        },
+      }
+    );
+    const data = await res.json();
+
+    return data.content;
+  };
+
   return (
     <>
 
@@ -222,147 +269,17 @@ export default function Expense() {
           </div>
         </div>
       </div>
+      
       <div className="bottom ">
         <div className="container">
+          <div >
+        <Accordion defaultActiveKey="0" >
+  <Accordion.Item eventKey="0" >
+    <Accordion.Header >Accordion Item #1</Accordion.Header>
+    <Accordion.Body >
           <div className="add">
             <div className="row text-center add__container">
-
-              <div className="accordion" id="accordionExample" style={{ paddingRight: 0 }}>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingOne">
-                    <button style={{ backgroundColor: '#D3F4D4' }} className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Naujas įrašas
-                    </button>
-                  </h2>
-                  <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div style={{ backgroundColor: '#D3F4D4' }} className="accordion-body">
-                      <form
-                        onSubmit={handleSubmit(onSubmit)}
-                        className="col-12 col-sm-12 col-md-12 col-lg-12 input-group"
-                        style={{ paddingRight: 0 }}
-                      >
-                        <input
-                          {...register("date", {
-                            value: today,
-                            required: true,
-                            max: today,
-                          })}
-                          type="date"
-                          className="form-control add__date"
-                          placeholder="Data"
-                        />
-
-                        <input
-                          {...register("expenseName", { required: true, minLength: 3 })}
-                          type="text"
-                          className="form-control add__description"
-                          placeholder="Aprašymas"
-                        />
-
-                        <select
-                          {...register("categoryId", {
-                            required: true,
-                          })}
-                          className="form-control add__description"
-                          type="text"
-                        >
-                          <option value={""}>--Pasirinkite kategoriją--</option>
-                          {allCategory.map((option) => (
-                            <option value={option.id}>{option.name}</option>
-                          ))}
-                        </select>
-
-                        <input
-                          {...register("amount", {
-                            required: true,
-                            min: 1,
-                          })}
-                          type="number"
-                          className="form-control add__value"
-                          placeholder="Kiekis"
-                          step="0.01"
-                        />
-
-                        <div className="input-group-append">
-                          <button className="btn" type="submit">
-                            <FontAwesomeIcon
-                              icon={faCirclePlus}
-                              className="add__btn__expense"
-                            />
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingTwo">
-                    <button style={{ backgroundColor: '#D3F4D4' }} className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Įrašų filtravimas
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div style={{ backgroundColor: '#D3F4D4' }} className="accordion-body">
-
-                      <form
-                        onSubmit={handleSubmit(onSubmit)}
-                        className="col-12 col-sm-12 col-md-12 col-lg-12 input-group"
-                        style={{ paddingRight: 0 }}
-                      >
-                        <input
-                          {...register("date", {
-                            value: today,
-                            required: true,
-                            max: today,
-                          })}
-                          type="date"
-                          className="form-control add__date"
-                          placeholder="Data"
-                        />
-
-                        <input
-                          {...register("date", {
-                            value: today,
-                            required: true,
-                            max: today,
-                          })}
-                          type="date"
-                          className="form-control add__date"
-                          placeholder="Data"
-                        />
-
-                        <select
-                          {...register("categoryId", {
-                            required: true,
-                          })}
-                          className="form-control add__description"
-                          type="text"
-                        >
-                          <option value={""}>--Pasirinkite kategoriją--</option>
-                          {allCategory.map((option) => (
-                            <option value={option.id}>{option.name}</option>
-                          ))}
-                        </select>
-
-
-
-                        <div className="input-group-append">
-                          <button className="btn" type="submit">
-                            <FontAwesomeIcon
-                              icon={faCirclePlus}
-                              className="add__btn__expense"
-                            />
-                          </button>
-                        </div>
-                      </form>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* <form
+              <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="col-12 col-sm-6 col-md-6 col-lg-6 input-group my-3"
               >
@@ -416,7 +333,8 @@ export default function Expense() {
                     />
                   </button>
                 </div>
-              </form> */}
+              </form>
+              
             </div>
 
             <div className="row ">
@@ -455,6 +373,10 @@ export default function Expense() {
               </div>
             </div>
           </div>
+          </Accordion.Body>
+  </Accordion.Item>
+</Accordion>
+</div>
         </div>
 
         {/* <div className="mt-5 list"> */}

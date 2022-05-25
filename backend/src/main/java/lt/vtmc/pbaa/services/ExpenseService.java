@@ -153,4 +153,15 @@ public class ExpenseService {
     	
 		return page;
 	}
+    public Page<Expense> findByUserAndExpensesCategory(String category, int offset, int pageSize){
+    	String currentPrincipalEmail = getCurrentPrincipalEmail();
+    	User user1 = userRepository.findByEmail(currentPrincipalEmail).orElse(null);
+    	Optional<User> user = Optional.of(user1);
+    	
+    	
+    	Page<Expense> page = expenseRepository.findByUserAndExpensesCategory(user, expensesCategoryRepository.findByName(category), PageRequest.of(offset, pageSize));
+
+    	
+		return page;
+	}
 }
