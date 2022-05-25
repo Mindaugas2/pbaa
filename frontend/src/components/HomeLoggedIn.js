@@ -13,18 +13,28 @@ export default function HomeLoggedIn() {
     const [incomes, setIncomes] = useState([]);
     const [statistics, setStatistics] = useState([]);
     const [limits, setLimits] = useState([]);
-
-    // const chartIncomeAmount = income.map(x => x.amount);
-    // const chartIncomeNames = income.map(x => x.incomeName);
+    const [savings, setSavings] = useState([]);
 
     const chartIncomeAmount = Object.values(incomes);
+    const incomeSum = chartIncomeAmount.reduce((sum, a) => sum + a, 0);
     const chartIncomeNames = Object.keys(incomes);
 
     const chartStatisticsAmount = statistics.map(x => x.amount);
+    const expenseSum = chartStatisticsAmount.reduce((sum,  a ) => sum + a, 0);
     const chartStatisticsNames = statistics.map(x => x.category.name);
 
     const chartLimitAmount = limits.map(x => x.amount);
     const chartLimitNames = limits.map(x => x.expensesCategory.name);
+
+    useEffect(() => {
+        const calculateSavings = () => {
+            if ((incomeSum - expenseSum) > 0) {
+                setSavings(incomeSum - expenseSum)
+            } else 
+            setSavings(0);
+        };
+        calculateSavings();
+    }, [incomeSum, expenseSum]);
 
     const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
     const chartIncomeColors = [];
@@ -206,6 +216,21 @@ export default function HomeLoggedIn() {
         // </>
 
         <div className="container">
+                            <div className="col-6">
+
+             <div>
+                                    <p>Mėnesio balansas</p>
+                                    <p>Pajamos {incomeSum} EUR</p>
+                                    <p>Išlaidos {expenseSum} EUR</p>
+                                    <p>Likutis {savings} EUR</p>
+                                    <p>Pajamų likutis išlaidoms, %</p>
+
+                                    <ProgressBar completed={
+                                        Math.round((savings) / ((incomeSum)) * 100)
+                                    } maxCompleted={100}/>
+                                </div>
+                                </div>
+
             <div className="row">
                 <div className="col">
                 <p>Šio mėnesio pajamos:</p>
