@@ -2,7 +2,7 @@ import React from 'react';
 import { CSVLink } from 'react-csv';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const ReactCSV = () => {
+const ReactCSV = (props) => {
 
     const data = [
         ["Aprašymas", "Data", "Kategorija", "Kiekis"],
@@ -15,7 +15,7 @@ const ReactCSV = () => {
     return (
         <div>
             <CSVLink
-                data={data}
+                data={props.allExpenses}
                 filename={"Išlaidos"}
                 target="_blank"
                 style={{ color: "white" }}

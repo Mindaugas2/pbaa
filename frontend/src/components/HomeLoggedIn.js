@@ -214,7 +214,16 @@ export default function HomeLoggedIn() {
         //         </div>
         //     </div>
         // </>
-
+<>
+<div className="container-fluid budget__expense">
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <h2>Statistika</h2>
+            </div>
+          </div>
+        </div>
+      </div>
         <div className="container">
                             <div className="col-6">
 
@@ -259,7 +268,7 @@ export default function HomeLoggedIn() {
 
                 </div>
 
-                <p>Limitai:</p>
+                {/* <p>Limitai:</p>
 
                 <div className="col-6">
                     <Doughnut
@@ -269,7 +278,7 @@ export default function HomeLoggedIn() {
                         options={{ maintainAspectRatio: false }}
                     />
 
-                </div>
+                </div> */}
                 <p>Limitų išnaudojimas:</p>
                 <div>
                     {statistics.map((categoryStatistics) => {
@@ -289,6 +298,6 @@ export default function HomeLoggedIn() {
                 </div>
             </div>
         </div>
-
+</>
     );
 }
