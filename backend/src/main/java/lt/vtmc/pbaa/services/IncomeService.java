@@ -43,9 +43,10 @@ public class IncomeService {
         String currentPrincipalEmail = getCurrentPrincipalEmail();
     	User user = userRepository.findByEmail(currentPrincipalEmail).orElse(null);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String incomeName = incomeRequest.getIncomeName();
         Income income = new Income(
                 user,
-                incomeRequest.getIncomeName(),
+                incomeName.substring(0, 1).toUpperCase() + incomeName.substring(1),
                 LocalDate.parse(incomeRequest.getDate(), formatter),
                 BigDecimal.valueOf(Double.parseDouble(incomeRequest.getAmount())));
         incomeRepository.save(income);
@@ -68,13 +69,15 @@ public class IncomeService {
             throw new RuntimeException("User has not this income");
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        updatingIncome.setIncomeName(incomeUpdateRequest.getIncomeName());
+        String incomeName = incomeUpdateRequest.getIncomeName();
+        String updatingIncomeName = incomeName.substring(0, 1).toUpperCase() + incomeName.substring(1);
+        updatingIncome.setIncomeName(updatingIncomeName);
         updatingIncome.setDate(LocalDate.parse(incomeUpdateRequest.getDate(), formatter));
         updatingIncome.setAmount(BigDecimal.valueOf(Double.parseDouble(incomeUpdateRequest.getAmount())));
         incomeRepository.save(updatingIncome);
         return new IncomeResponse(
                 updatingIncome.getId().toString(),
-                incomeUpdateRequest.getIncomeName(),
+                updatingIncomeName,
                 incomeUpdateRequest.getDate(),
                 incomeUpdateRequest.getAmount());
     }
