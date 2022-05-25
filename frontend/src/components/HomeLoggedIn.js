@@ -10,25 +10,29 @@ import ProgressBar from "@ramonak/react-progress-bar";
 export default function HomeLoggedIn() {
     const currentUser = AuthService.getCurrentUser();
 
-    const [income, setIncome] = useState([]);
+    const [incomes, setIncomes] = useState([]);
     const [statistics, setStatistics] = useState([]);
+    const [limits, setLimits] = useState([]);
 
     // const chartIncomeAmount = income.map(x => x.amount);
     // const chartIncomeNames = income.map(x => x.incomeName);
 
-    const chartIncomeAmount = Object.values(income);
-    console.log(chartIncomeAmount)
-    const chartIncomeNames = Object.keys(income);
+    const chartIncomeAmount = Object.values(incomes);
+    const chartIncomeNames = Object.keys(incomes);
 
-    const chartLimitAmount = statistics.map(x => x.limit);
-    const chartLimitNames = statistics.map(x => x.category.name);
+    const chartStatisticsAmount = statistics.map(x => x.amount);
+    const chartStatisticsNames = statistics.map(x => x.category.name);
 
-    const chartExpenseAmount = statistics.map(x => x.amount);
-    const chartExpenseNames = statistics.map(x => x.category.name);
+    const chartLimitAmount = limits.map(x => x.amount);
+    const chartLimitNames = limits.map(x => x.expensesCategory.name);
 
     const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
     const chartIncomeColors = [];
     const chartIncomeColorsBorder = [];
+    const chartStatisticsColors = [];
+    const chartStatisticsColorsBorder = [];
+    const chartLimitColors = [];
+    const chartLimitColorsBorder = [];
 
     // Generates random RGB values for the displayed incomes
     for (let i = 1; i <= chartIncomeNames.length; i++) {
@@ -40,6 +44,28 @@ export default function HomeLoggedIn() {
 
         chartIncomeColors.push(rgb);
         chartIncomeColorsBorder.push(rgbBorder);
+    }
+
+    for (let i = 1; i <= chartStatisticsNames.length; i++) {
+        const r = randomBetween(0, 200);
+        const g = randomBetween(0, 200);
+        const b = randomBetween(0, 200);
+        const rgb = `rgb(${r}, ${g}, ${b}, 0.4)`; // Collect all to a css color string
+        const rgbBorder = `rgb(${r}, ${g}, ${b}, 1)`;
+
+        chartStatisticsColors.push(rgb);
+        chartStatisticsColorsBorder.push(rgbBorder);
+    }
+
+    for (let i = 1; i <= chartLimitNames.length; i++) {
+        const r = randomBetween(0, 200);
+        const g = randomBetween(0, 200);
+        const b = randomBetween(0, 200);
+        const rgb = `rgb(${r}, ${g}, ${b}, 0.4)`; // Collect all to a css color string
+        const rgbBorder = `rgb(${r}, ${g}, ${b}, 1)`;
+
+        chartLimitColors.push(rgb);
+        chartLimitColorsBorder.push(rgbBorder);
     }
 
     // Fetch all user's income from database to display down below
@@ -73,7 +99,7 @@ export default function HomeLoggedIn() {
                 });
 
             const data = await response.json();
-            setIncome(data);
+            setIncomes(data);
         };
 
         fetchData();
@@ -95,7 +121,7 @@ export default function HomeLoggedIn() {
     };
 
     useEffect(() => {
-        const fetchStatistics = async () => {
+        const fetchStatitics = async () => {
             const response = await fetch(`http://localhost:8080/api/statistics/user/${currentUser.id}`,
                 {
                     method: "GET",
@@ -109,32 +135,51 @@ export default function HomeLoggedIn() {
             setStatistics(data);
         };
 
-        fetchStatistics();
+        fetchStatitics();
     }, []);
 
-    // ChartJS.register(ArcElement, Tooltip, Legend);
+    ChartJS.register(ArcElement, Tooltip, Legend);
+    const expenseData = {
+        labels: chartStatisticsNames,
+        datasets: [
+            {
+                label: 'Šio mėnesio išlaidos:',
+                data: chartStatisticsAmount,
+                backgroundColor: chartStatisticsColors,
+                borderColor: chartStatisticsColorsBorder,
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    
+    useEffect(() => {
+        const fetchLimits = async () => {
+            const response = await fetch(`http://localhost:8080/api/limits/user/${currentUser.id}`,
+                {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentUser.accessToken}`
+                    }
+                });
+
+            const data = await response.json();
+            setLimits(data);
+        };
+
+        fetchLimits();
+    }, []);
+
+    ChartJS.register(ArcElement, Tooltip, Legend);
     const limitsData = {
         labels: chartLimitNames,
         datasets: [
             {
                 label: 'Limitai:',
                 data: chartLimitAmount,
-                backgroundColor: chartIncomeColors,
-                borderColor: chartIncomeColorsBorder,
-                borderWidth: 1,
-            },
-        ],
-    };
-
-    ChartJS.register(ArcElement, Tooltip, Legend);
-    const expenseData = {
-        labels: chartExpenseNames,
-        datasets: [
-            {
-                label: 'Šio mėnesio išlaidos:',
-                data: chartExpenseAmount,
-                backgroundColor: chartIncomeColors,
-                borderColor: chartIncomeColorsBorder,
+                backgroundColor: chartLimitColors,
+                borderColor: chartLimitColorsBorder,
                 borderWidth: 1,
             },
         ],
@@ -202,13 +247,19 @@ export default function HomeLoggedIn() {
                 </div>
                 <p>Limitų išnaudojimas:</p>
                 <div>
-                    {statistics.map((categoryStatisics) => {
-                        return (
-                            <div>
-                                <p>{categoryStatisics.category.name}</p>
-                                <ProgressBar completed={Math.round((categoryStatisics.amount) / (categoryStatisics.limit) * 100)} maxCompleted={100} />
-                            </div>
-                        )
+                    {statistics.map((categoryStatistics) => {
+                        if (categoryStatistics.limit !== 0) {
+                            return (
+                            
+                                <div>
+                                    <p>{categoryStatistics.category.name}</p>
+                                    <ProgressBar completed={
+                                        
+                                        Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100)
+                                        } maxCompleted={100}/>
+                                </div>
+                            )
+                        } 
                     })}
                 </div>
             </div>
