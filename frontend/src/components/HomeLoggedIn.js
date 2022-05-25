@@ -189,7 +189,7 @@ export default function HomeLoggedIn() {
 
                 </div>
 
-                <p>Limitai:</p>
+                {/* <p>Limitai:</p>
 
                 <div className="col-6">
                     <Doughnut
@@ -199,7 +199,7 @@ export default function HomeLoggedIn() {
                         options={{ maintainAspectRatio: false }}
                     />
 
-                </div>
+                </div> */}
                 <p>Limitų išnaudojimas:</p>
                 <div>
                     {statistics.map((categoryStatisics) => {
