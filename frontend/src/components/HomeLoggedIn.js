@@ -219,7 +219,14 @@ export default function HomeLoggedIn() {
                         {statistics.map((categoryStatisics) => {
                             return (
                                 <div>
-                                    <p>{categoryStatisics.category.name} ({categoryStatisics.limit}€)</p>
+                                    <div className='row'>
+                                        <div className='col-8'>
+                                            <p className='mb-pb-fix'>{categoryStatisics.category.name}</p>
+                                        </div>
+                                        <div className='col-4'>
+                                            <p style={{ textAlign: "end" }} className="mb-pb-fix">({categoryStatisics.limit}€)</p>
+                                        </div>
+                                    </div>
 
                                     <ProgressBar
                                         completed={Math.round((categoryStatisics.amount) / (categoryStatisics.limit) * 100)}

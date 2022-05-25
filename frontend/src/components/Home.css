@@ -28,3 +28,10 @@
 .margin_fix {
     margin: 5rem 0;
 }
+
+/* limit progress bar */
+.mb-pb-fix {
+    margin: 1rem 0 0.5rem 0;
+}
+
+/*  */
