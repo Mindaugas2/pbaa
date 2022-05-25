@@ -163,37 +163,47 @@ export default function HomeLoggedIn() {
         //         </div>
         //     </div>
         // </>
-
-        <div className="container">
-            <div className="row">
-                <div className="col">
-                    <p>Šio mėnesio pajamos:</p>
-
-                    <div className="col-6">
-                        <Doughnut
-                            data={data}
-                            width={400}
-                            height={400}
-                            options={{ maintainAspectRatio: false }}
-                        />
+        <>
+            <div className="container-fluid budget__expense">
+                <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <h2>Statistika</h2>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div className="container">
 
-                <div className="col">
-                    <p>Šio mėnesio Išlaidos:</p>
+                <div className="row">
+                    <div className="col">
+                        <p>Šio mėnesio pajamos:</p>
 
-                    <div className="col-6">
-                        <Doughnut
-                            data={expenseData}
-                            width={400}
-                            height={400}
-                            options={{ maintainAspectRatio: false }}
-                        />
+                        <div className="col-6">
+                            <Doughnut
+                                data={data}
+                                width={400}
+                                height={400}
+                                options={{ maintainAspectRatio: false }}
+                            />
+                        </div>
                     </div>
 
-                </div>
+                    <div className="col">
+                        <p>Šio mėnesio Išlaidos:</p>
 
-                {/* <p>Limitai:</p>
+                        <div className="col-6">
+                            <Doughnut
+                                data={expenseData}
+                                width={400}
+                                height={400}
+                                options={{ maintainAspectRatio: false }}
+                            />
+                        </div>
+
+                    </div>
+
+                    {/* <p>Limitai:</p>
 
                 <div className="col-6">
                     <Doughnut
@@ -204,25 +214,24 @@ export default function HomeLoggedIn() {
                     />
 
                 </div> */}
+                    <p>Limitų išnaudojimas:</p>
+                    <div>
+                        {statistics.map((categoryStatisics) => {
+                            return (
+                                <div>
+                                    <p>{categoryStatisics.category.name} ({categoryStatisics.limit}€)</p>
 
-                <p>Limitų išnaudojimas:</p>
-                <div>
-                    {statistics.map((categoryStatisics) => {
-                        return (
-                            <div>
-                                <p>{categoryStatisics.category.name} ({categoryStatisics.limit}€)</p>
-
-                                <ProgressBar
-                                    completed={Math.round((categoryStatisics.amount) / (categoryStatisics.limit) * 100)}
-                                    maxCompleted={100}
-                                    bgColor="#008F8C"
-                                />
-                            </div>
-                        )
-                    })}
+                                    <ProgressBar
+                                        completed={Math.round((categoryStatisics.amount) / (categoryStatisics.limit) * 100)}
+                                        maxCompleted={100}
+                                        bgColor="#008F8C"
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </>
     );
 }
