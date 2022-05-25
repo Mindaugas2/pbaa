@@ -5,9 +5,9 @@
 
 body {
     background: #E0EAFC;
-    background: -webkit-linear-gradient(to right, #cff3d2, #e0fce5);
+    /* background: -webkit-linear-gradient(to right, #cff3d2, #e0fce5);
     background: -webkit-linear-gradient(left, #cff3df, #e0fce4);
-    background: linear-gradient(to right, #cff3d2, #e5fce0);
+    background: linear-gradient(to right, #cff3d2, #e5fce0); */
     color: #555;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -71,7 +71,11 @@ body {
 }
 
 .budget__expense {
-    background-color: #74bdee;
+    background-color: #008F8C;
+    /* #F9A73E */
+    /* #69C6AF; */
+    /* #CD9FC9 */
+    /* #F2CE1B */
 
 }
 
@@ -127,7 +131,7 @@ button {
 }
 
 .add__btn__expense {
-    color: #74bdee;
+    color: #008F8C;
     width: 25px;
     height: auto;
 }
@@ -247,22 +251,22 @@ h2 {
 .page-item.active .page-link {
     z-index: 3;
     color: #fff !important;
-    background-color: rgba(137,186,22,255) !important;
-    border-color: green;
+    background-color:#BFBFBF !important;
+    border-color: #F2F2F2  !important;
   }
 
 
   /* Table */
   tbody, thead{
-    border-color: #89BA16 !important;
+    border-color: #F2F2F2 !important;
   }
   table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #89BA16 !important;
-    border-top: 2px solid #89BA16 !important;
+    border-bottom: 2px solid #F2F2F2 !important;
+    border-top: 2px solid #F2F2F2 !important;
 }
 
-/* accordion css */
-.accordion-button{
-    background-color: #2ecc71;
-}
+/* .page-item.active .page-link{
+    border-color:#F2F2F2;
+} */
+

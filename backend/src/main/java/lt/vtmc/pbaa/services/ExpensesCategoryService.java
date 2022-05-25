@@ -34,11 +34,13 @@ public class ExpensesCategoryService {
     }
 
     public ExpensesCategoryResponse saveExpensesCategory(ExpensesCategoryInsertRequest expensesCategoryInsertRequest) {
-        Optional<ExpensesCategory> expensesCategory = expensesCategoryRepository.findByName(expensesCategoryInsertRequest.getName());
+        String categoryName = expensesCategoryInsertRequest.getName();
+        String expenseCategoryName = categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1);
+        Optional<ExpensesCategory> expensesCategory = expensesCategoryRepository.findByName(expenseCategoryName);
         if (expensesCategory.isPresent()) {
             throw new RuntimeException("Category already exists");
         }
-        ExpensesCategory newExpensesCategory = new ExpensesCategory(expensesCategoryInsertRequest.getName());
+        ExpensesCategory newExpensesCategory = new ExpensesCategory(expenseCategoryName);
         expensesCategoryRepository.save(newExpensesCategory);
         return new ExpensesCategoryResponse(newExpensesCategory.getId(), newExpensesCategory.getName());
     }
@@ -48,11 +50,13 @@ public class ExpensesCategoryService {
         if (expensesCategory == null) {
             throw new RuntimeException("Category does not exist");
         }
-        Optional<ExpensesCategory> expensesCategory2 = expensesCategoryRepository.findByName(expensesCategoryUpdateRequest.getName());
+        String categoryName = expensesCategoryUpdateRequest.getName();
+        String expenseCategoryName = categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1);
+        Optional<ExpensesCategory> expensesCategory2 = expensesCategoryRepository.findByName(expenseCategoryName);
         if (expensesCategory2.isPresent()) {
             throw new RuntimeException("Category already exists");
         }
-        expensesCategory.setName(expensesCategoryUpdateRequest.getName());
+        expensesCategory.setName(expenseCategoryName);
         expensesCategoryRepository.save(expensesCategory);
         return new ExpensesCategoryResponse(expensesCategory.getId(), expensesCategory.getName());
     }
