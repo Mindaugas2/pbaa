@@ -20,9 +20,13 @@ export default function HomeLoggedIn() {
     console.log(chartIncomeAmount)
     const chartIncomeNames = Object.keys(income);
 
+    // const chartLimitAmount2 = statistics.map(x => x.limit);
+    // const chartLimitNames2 = statistics.map(x => x.category.name);
+    // const chartExpenseAmount2 = statistics.map(x => x.amount);
+    // const chartExpenseNames2 = statistics.map(x => x.category.name);
+
     const chartLimitAmount = statistics.map(x => x.limit);
     const chartLimitNames = statistics.map(x => x.category.name);
-
     const chartExpenseAmount = statistics.map(x => x.amount);
     const chartExpenseNames = statistics.map(x => x.category.name);
 
@@ -78,7 +82,7 @@ export default function HomeLoggedIn() {
 
         fetchData();
     }, []);
-    
+
 
     ChartJS.register(ArcElement, Tooltip, Legend);
     const data = {
@@ -163,33 +167,33 @@ export default function HomeLoggedIn() {
         <div className="container">
             <div className="row">
                 <div className="col">
-                <p>Šio mėnesio pajamos:</p>
+                    <p>Šio mėnesio pajamos:</p>
 
-                <div className="col-6">
-                    <Doughnut
-                        data={data}
-                        width={400}
-                        height={400}
-                        options={{ maintainAspectRatio: false }}
-                    />
-                </div>
+                    <div className="col-6">
+                        <Doughnut
+                            data={data}
+                            width={400}
+                            height={400}
+                            options={{ maintainAspectRatio: false }}
+                        />
+                    </div>
                 </div>
 
                 <div className="col">
-                <p>Šio mėnesio Išlaidos:</p>
+                    <p>Šio mėnesio Išlaidos:</p>
 
-                <div className="col-6">
-                    <Doughnut
-                        data={expenseData}
-                        width={400}
-                        height={400}
-                        options={{ maintainAspectRatio: false }}
-                    />
-                                    </div>
+                    <div className="col-6">
+                        <Doughnut
+                            data={expenseData}
+                            width={400}
+                            height={400}
+                            options={{ maintainAspectRatio: false }}
+                        />
+                    </div>
 
                 </div>
 
-                <p>Limitai:</p>
+                {/* <p>Limitai:</p>
 
                 <div className="col-6">
                     <Doughnut
@@ -199,14 +203,18 @@ export default function HomeLoggedIn() {
                         options={{ maintainAspectRatio: false }}
                     />
 
-                </div>
+                </div> */}
+
                 <p>Limitų išnaudojimas:</p>
                 <div>
                     {statistics.map((categoryStatisics) => {
                         return (
                             <div>
-                                <p>{categoryStatisics.category.name}</p>
-                                <ProgressBar completed={Math.round((categoryStatisics.amount) / (categoryStatisics.limit) * 100)} maxCompleted={100} />
+                                <p>{categoryStatisics.category.name} ({categoryStatisics.limit}€)</p>
+
+                                <ProgressBar
+                                    completed={Math.round((categoryStatisics.amount) / (categoryStatisics.limit) * 100)}
+                                    maxCompleted={100} />
                             </div>
                         )
                     })}
