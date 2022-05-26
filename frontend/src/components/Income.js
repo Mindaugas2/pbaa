@@ -10,7 +10,7 @@ import EditIncomeModal from './EditIncomeModal';
 import DeleteModal from './DeleteModal';
 import ReactPaginate from 'react-paginate';
 import Table from 'react-bootstrap/Table';
-import moment from 'moment';
+import Pagination from '../components/Pagination';
 
 // This code copypasted from: https://codepen.io/fido123/pen/xzvxNw
 // JavaScript is not included in this code, only html and css
@@ -200,7 +200,7 @@ export default function Income() {
   };
 
   const handlePageClick = async (data) => {
-    console.log(data);
+
 
     let currentPage = data.selected;
 
@@ -406,7 +406,7 @@ export default function Income() {
               </Table>
             </div>
             {/* pagination for the user items */}
-            <ReactPaginate
+            {/* <ReactPaginate
               previousLabel={"previous"}
               nextLabel={"next"}
               breakLabel={"..."}
@@ -424,7 +424,10 @@ export default function Income() {
               breakClassName={"page-item"}
               breakLinkClassName={"page-link"}
               activeClassName={"active"}
-            />
+            /> */}
+            <Pagination 
+              pageCount={pageCount}
+              onPageChange={handlePageClick}/>
           </div>
         </div>
         {/* </div> */}
