@@ -5,7 +5,7 @@ const Home = () => {
     return (
         <>
 
-            <div className="container-fluid margin_fix">
+            <div className="container mt-custom box-shadow">
                 {/* why use a budget app row */}
                 <div className="row">
                     <div className="">
