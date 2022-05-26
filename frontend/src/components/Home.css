@@ -1,4 +1,4 @@
-.second_section{
+.second_section {
     height: auto;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -6,23 +6,32 @@
     padding: 20px 0;
 }
 
-.ss_header{
+.ss_header {
     font-family: "Calibri";
     font-size: 130%;
     color: #6b8910;
     font-weight: bold;
     padding-bottom: 13px;
 }
-.ss_content{
+
+.ss_content {
     font-family: "Calibri";
 }
-.third_section{
+
+.third_section {
     height: auto;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 20px 0;
 }
 
-.margin_fix{
+.margin_fix {
     margin: 5rem 0;
 }
+
+/* limit progress bar */
+.mb-pb-fix {
+    margin: 1rem 0 0.5rem 0;
+}
+
+/*  */
