@@ -316,25 +316,27 @@ export default function HomeLoggedIn() {
                 </div> */}
                 <p>Limitų išnaudojimas:</p>
                 <div>
-                    {statistics.map((categoryStatisics) => {
-                        return (
-                            <div>
-                                <div className='row'>
-                                    <div className='col-8'>
-                                        <p className='mb-pb-fix'>{categoryStatisics.category.name}</p>
+                    {statistics.map((categoryStatistics) => {
+                        if (categoryStatistics.limit !== 0) {
+                            return (
+                                <div>
+                                    <div className='row'>
+                                        <div className='col-8'>
+                                            <p className='mb-pb-fix'>{categoryStatistics.category.name}</p>
+                                        </div>
+                                        <div className='col-4'>
+                                            <p style={{ textAlign: "end" }} className="mb-pb-fix">({categoryStatistics.limit}€)</p>
+                                        </div>
                                     </div>
-                                    <div className='col-4'>
-                                        <p style={{ textAlign: "end" }} className="mb-pb-fix">({categoryStatisics.limit}€)</p>
-                                    </div>
-                                </div>
 
-                                <ProgressBar
-                                    completed={Math.round((categoryStatisics.amount) / (categoryStatisics.limit) * 100)}
-                                    maxCompleted={100}
-                                    bgColor="#008F8C"
-                                />
-                            </div>
-                        )
+                                    <ProgressBar
+                                        completed={Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100)}
+                                        maxCompleted={100}
+                                        bgColor="#008F8C"
+                                    />
+                                </div>
+                            )
+                        }
                     })}
                 </div>
 
