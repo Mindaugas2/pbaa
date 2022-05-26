@@ -226,6 +226,25 @@ export default function Expense() {
   //let category = null;
 
   const onSubmit1 = async (fr) => {
+    if(fr.date1 == "" && fr.date2 == ""){
+      const res = await fetch(
+        `http://localhost:8080/api/expense/userCategory?category=${fr.category}&offset=0&pageSize=${limit}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${currentUser.accessToken}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setAllExpense(data.content);
+      const total = data.totalPages;
+        
+      setpageCount(total);
+      return data.content;
+    }
+    else{
     const res = await fetch(
       `http://localhost:8080/api/expense/userDate?date1=${fr.date1}&date2=${fr.date2}&category=${fr.category}&offset=0&pageSize=${limit}`,
       {
@@ -239,10 +258,10 @@ export default function Expense() {
     const data = await res.json();
     setAllExpense(data.content);
     const total = data.totalPages;
-
+      
     setpageCount(total);
 
-    return data.content;
+    return data.content;}
   };
   
   
@@ -421,8 +440,8 @@ export default function Expense() {
               >
                 <input
                   {...register2("date1", {
-                    value: today2,
-                    required: true,
+                    //value: today2,
+                    //required: true,
                     max: today,
                   })}
                   type="date"
@@ -432,8 +451,8 @@ export default function Expense() {
 
                 <input
                   {...register2("date2", {
-                    value: today,
-                    required: true,
+                    //value: today,
+                    //required: true,
                     max: today,
                   })}
                   type="date"
