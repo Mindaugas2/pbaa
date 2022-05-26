@@ -247,7 +247,7 @@ export default function HomeLoggedIn() {
                     </div>
                 </div> */}
 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col">
                         <p>Šio mėnesio pajamos:</p>
 
@@ -273,8 +273,8 @@ export default function HomeLoggedIn() {
                         </div>
 
                     </div>
-                </div>
-                <p>Limitų išnaudojimas:</p>
+                </div> */}
+                {/* <p>Limitų išnaudojimas:</p>
                 <div>
                     {statistics.map((categoryStatistics) => {
                         if (categoryStatistics.limit !== 0) {
@@ -299,7 +299,7 @@ export default function HomeLoggedIn() {
                             )
                         }
                     })}
-                </div>
+                </div> */}
                 {/* 
  */}
                 {/*  */}
@@ -391,13 +391,35 @@ export default function HomeLoggedIn() {
                             <div className="col-xl-6 col-xxl-7">
                                 <div className="card flex-fill w-100">
                                     <div className="card-header">
-
-                                        <h5 className="card-title mb-0">Recent Movement</h5>
+                                        <h5 className="card-title mb-0">Limitai</h5>
                                     </div>
                                     <div className="card-body py-3">
-                                        <div className="chart chart-sm">
-                                            <canvas id="chartjs-dashboard-line"></canvas>
-                                        </div>
+
+
+                                        {statistics.map((categoryStatistics) => {
+                                            if (categoryStatistics.limit !== 0) {
+                                                return (
+                                                    <div>
+                                                        <div className='row'>
+                                                            <div className='col-8'>
+                                                                <p className='mb-pb-fix'>{categoryStatistics.category.name}</p>
+                                                            </div>
+                                                            <div className='col-4'>
+                                                                <p style={{ textAlign: "end" }} className="mb-pb-fix">({categoryStatistics.limit}€)</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <ProgressBar
+                                                            completed={Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100)}
+                                                            maxCompleted={100}
+
+                                                            bgColor={(Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100) < 100) ? "#008F8C" : "#e84d4d"}
+                                                        />
+                                                    </div>
+                                                )
+                                            }
+                                        })}
+
                                     </div>
                                 </div>
                             </div>
@@ -408,15 +430,16 @@ export default function HomeLoggedIn() {
                                 <div className="card flex-fill w-100">
                                     <div className="card-header">
 
-                                        <h5 className="card-title mb-0">Browser Usage</h5>
+                                        <h5 className="card-title mb-0">Einamojo mėnesio išlaidos (kategorijos)</h5>
                                     </div>
                                     <div className="card-body d-flex">
                                         <div className="align-self-center w-100">
-                                            <div className="py-3">
-                                                <div className="chart chart-xs">
-                                                    <canvas id="chartjs-dashboard-pie"></canvas>
-                                                </div>
-                                            </div>
+                                            <Doughnut
+                                                data={expenseData}
+                                                width={400}
+                                                height={400}
+                                                options={{ maintainAspectRatio: false }}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -426,13 +449,16 @@ export default function HomeLoggedIn() {
                                 <div className="card flex-fill">
                                     <div className="card-header">
 
-                                        <h5 className="card-title mb-0">Calendar</h5>
+                                        <h5 className="card-title mb-0">Einamojo mėnesio pajamos</h5>
                                     </div>
                                     <div className="card-body d-flex">
                                         <div className="align-self-center w-100">
-                                            <div className="chart">
-                                                <div id="datetimepicker-dashboard"></div>
-                                            </div>
+                                            <Doughnut
+                                                data={data}
+                                                width={400}
+                                                height={400}
+                                                options={{ maintainAspectRatio: false }}
+                                            />
                                         </div>
                                     </div>
                                 </div>
