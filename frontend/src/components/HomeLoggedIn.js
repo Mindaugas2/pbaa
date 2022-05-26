@@ -23,6 +23,11 @@ export default function HomeLoggedIn() {
     const expenseSum = chartStatisticsAmount.reduce((sum,  a ) => sum + a, 0);
     const chartStatisticsNames = statistics.map(x => x.category.name);
 
+    const chartLimitAmount = statistics.map(x => x.limit);
+    const chartLimitNames = statistics.map(x => x.category.name);
+    const chartExpenseAmount = statistics.map(x => x.amount);
+    const chartExpenseNames = statistics.map(x => x.category.name);
+  
     const chartLimitAmount = limits.map(x => x.amount);
     const chartLimitNames = limits.map(x => x.expensesCategory.name);
 
@@ -114,7 +119,7 @@ export default function HomeLoggedIn() {
 
         fetchData();
     }, []);
-    
+
 
     ChartJS.register(ArcElement, Tooltip, Legend);
     const data = {
@@ -267,8 +272,38 @@ export default function HomeLoggedIn() {
                                     </div>
 
                 </div>
+            </div>
+            <div className="container">
 
-                {/* <p>Limitai:</p>
+                <div className="row">
+                    <div className="col">
+                        <p>Šio mėnesio pajamos:</p>
+
+                        <div className="col-6">
+                            <Doughnut
+                                data={data}
+                                width={400}
+                                height={400}
+                                options={{ maintainAspectRatio: false }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col">
+                        <p>Šio mėnesio Išlaidos:</p>
+
+                        <div className="col-6">
+                            <Doughnut
+                                data={expenseData}
+                                width={400}
+                                height={400}
+                                options={{ maintainAspectRatio: false }}
+                            />
+                        </div>
+
+                    </div>
+
+                    {/* <p>Limitai:</p>
 
                 <div className="col-6">
                     <Doughnut
@@ -279,25 +314,32 @@ export default function HomeLoggedIn() {
                     />
 
                 </div> */}
-                <p>Limitų išnaudojimas:</p>
-                <div>
-                    {statistics.map((categoryStatistics) => {
-                        if (categoryStatistics.limit !== 0) {
+                    <p>Limitų išnaudojimas:</p>
+                    <div>
+                        {statistics.map((categoryStatisics) => {
                             return (
-                            
                                 <div>
-                                    <p>{categoryStatistics.category.name}</p>
-                                    <ProgressBar completed={
-                                        
-                                        Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100)
-                                        } maxCompleted={100}/>
+                                    <div className='row'>
+                                        <div className='col-8'>
+                                            <p className='mb-pb-fix'>{categoryStatisics.category.name}</p>
+                                        </div>
+                                        <div className='col-4'>
+                                            <p style={{ textAlign: "end" }} className="mb-pb-fix">({categoryStatisics.limit}€)</p>
+                                        </div>
+                                    </div>
+
+                                    <ProgressBar
+                                        completed={Math.round((categoryStatisics.amount) / (categoryStatisics.limit) * 100)}
+                                        maxCompleted={100}
+                                        bgColor="#008F8C"
+                                    />
                                 </div>
                             )
-                        } 
-                    })}
+                        })}
+                    </div>
+
                 </div>
             </div>
-        </div>
-</>
+        </>
     );
 }
