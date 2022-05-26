@@ -5,6 +5,7 @@
 
 body {
     background: #E0EAFC;
+    background-color: rgb(246, 246, 246) !important;
     /* background: -webkit-linear-gradient(to right, #cff3d2, #e0fce5);
     background: -webkit-linear-gradient(left, #cff3df, #e0fce4);
     background: linear-gradient(to right, #cff3d2, #e5fce0); */

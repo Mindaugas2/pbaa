@@ -5,7 +5,7 @@ const Home = () => {
     return (
         <>
 
-            <div className="container mt-custom box-shadow">
+            <div className="container mt-custom box-shadow bg-white">
                 {/* why use a budget app row */}
                 <div className="row">
                     <div className="">
