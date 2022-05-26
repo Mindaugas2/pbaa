@@ -348,12 +348,12 @@ export default function Expense() {
 
                 <input
                   {...register("amount", {
-                    required: true,
-                    min: 1,
+                    required: true
+              
                   })}
                   type="number"
                   className="form-control add__value"
-                  placeholder="Kiekis"
+                  placeholder="Suma"
                   step="0.01"
                 />
 
@@ -403,7 +403,7 @@ export default function Expense() {
                   <p>Šis laukas yra privalomas</p>
                 )}
                 {errors?.amount?.type === "min" && (
-                  <p>Mažiausias įvestinų išlaidų suma yra 0.01 &euro;</p>
+                  <p>Mažiausia įvestinų išlaidų suma yra 0.01 &euro;</p>
                 )}
               </div>
             </div>
@@ -469,27 +469,27 @@ export default function Expense() {
             </div>
 
             <div className="row ">
-            <div className="col-sm-3 col-3">
-                {errors2?.date?.type === "required" && (
+            <div className="col-sm-4 col-4">
+                {errors2?.date1?.type === "required" && (
                   <p>Šis laukas yra privalomas</p>
                 )}
-                {errors2?.date?.type === "max" && (
+                {errors2?.date1?.type === "max" && (
                   <p>Naujesnių nei šiandien įrašų negali būti</p>
                 )}
               </div>
-              <div className="col-sm-3 col-3">
-                {errors2?.date?.type === "required" && (
+              <div className="col-sm-4 col-4">
+                {errors2?.date2?.type === "required" && (
                   <p>Šis laukas yra privalomas</p>
                 )}
-                {errors2?.date?.type === "max" && (
+                {errors2?.date2?.type === "max" && (
                   <p>Naujesnių nei šiandien įrašų negali būti</p>
                 )}
               </div>
-              <div className="col-sm-3 col-3">
-                {errors2?.categoryId?.type === "required" && (
+              <div className="col-sm-4 col-4">
+                {errors2?.category?.type === "required" && (
                   <p>Šis laukas yra privalomas</p>
                 )}
-                {errors2?.categoryId?.type === "minLength" && (
+                {errors2?.category?.type === "minLength" && (
                   <p>Aprašymas turi būti bent 4 simbolių ilgio</p>
                 )}
               </div>
@@ -517,7 +517,7 @@ export default function Expense() {
                     <th>Aprašymas</th>
                     <th>Data</th>
                     <th>Kategorija</th>
-                    <th>Kiekis</th>
+                    <th>Suma</th>
                     <th></th>
                   </tr>
                 </thead>

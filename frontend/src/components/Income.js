@@ -257,7 +257,7 @@ export default function Income() {
                   })}
                   type="number"
                   className="form-control add__value"
-                  placeholder="Kiekis"
+                  placeholder="Suma"
                   step="0.01"
                 />
 
@@ -316,7 +316,7 @@ export default function Income() {
                   <tr>
                     <th>Aprašymas</th>
                     <th>Data</th>
-                    <th>Kiekis</th>
+                    <th>Suma</th>
                     <th></th>
                   </tr>
                 </thead>
