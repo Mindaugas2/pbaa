@@ -12,35 +12,28 @@ const ReactCSV = (props) => {
         // [expense.expenseName, expense.date, expense.expensesCategory.name, expense.amount]
         
     ];
-    const currentUser = AuthService.getCurrentUser();
-    const [allExpense2, setAllExpense2] = useState([]);
-  // Sums user's expense
-  const expenseSum = allExpense2.reduce((n, { amount }) => n + amount, 0);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `http://localhost:8080/api/expense/user/${currentUser.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${currentUser.accessToken}`,
-          },
-        }
-      );
-      const data = await response.json();
-      setAllExpense2(data);
-      console.log(data);
-    };
-    
-    fetchData();
-  }, []);
+
+    const expenses = props.allExpenses.map((ex) => ({
+      Nr: ex.id,
+      Aprašymas: ex.expenseName,
+      Data: ex.date,
+      Kategorija: ex.expensesCategory.name,
+      Kiekis: ex.amount
+    }));
+    // const headers = [
+    //   { label: 'Nr', key: 'id'},
+    //   { label: 'Aprašymas', key: 'expenseName'},
+    //   { label: 'Data', key: 'date'},
+    //   { label: 'Kategorija', key: 'date'},
+    //   { label: 'Data', key: 'date'}
+    // ];
 
 
     return (
         <div>
             <CSVLink
-                data={props.allExpenses}
+                data={expenses}
+                // headers={headers}
                 filename={"Išlaidos"}
                 target="_blank"
                 style={{ color: "white" }}

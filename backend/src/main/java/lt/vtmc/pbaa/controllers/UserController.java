@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lt.vtmc.pbaa.models.ERole;
@@ -114,5 +117,8 @@ public class UserController {
 	public ResponseEntity<List<User>> getAllUsers() {
 		return ResponseEntity.ok().body(this.userRepository.findAll());
 	}
-	
+	@GetMapping("/allPage")
+	public ResponseEntity<Page<User>> getAllUsersPage(@RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize) {
+		return ResponseEntity.ok().body(this.userRepository.findAll(PageRequest.of(offset, pageSize)));
+	}
 }

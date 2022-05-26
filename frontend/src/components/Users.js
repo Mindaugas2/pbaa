@@ -97,21 +97,22 @@ export default function Users() {
   };
 
   // Fetch all users from database to display down below
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`http://localhost:8080/api/user/all`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${currentUser.accessToken}`,
-        },
-      });
-      const data = await response.json();
-      setAllUsers(data);
-    };
 
-    fetchData();
-  }, [forceRender]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(`http://localhost:8080/api/user/all`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${currentUser.accessToken}`,
+  //       },
+  //     });
+  //     const data = await response.json();
+  //     setAllUsers(data);
+  //   };
+
+  //   fetchData();
+  // }, [forceRender]);
 
   const showDeleteModal = (id) => {
     setDisplayDeleteModal(true);
@@ -122,6 +123,58 @@ export default function Users() {
     setDisplayDeleteModal(false);
   };
 
+  //for pagination
+
+  const [pageCount, setpageCount] = useState(0);
+
+  let limit = 9;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:8080/api/user/allPage?offset=0&pageSize=${limit}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${currentUser.accessToken}`,
+        },
+      });
+      const data = await response.json();
+      setAllUsers(data.content);
+      const total = data.totalPages;
+
+      setpageCount(total);
+    };
+
+    fetchData();
+  }, [forceRender]);
+
+  const fetchExpense = async (currentPage) => {
+    const res = await fetch(
+      `http://localhost:8080/api/user/allPage?offset=${currentPage}&pageSize=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${currentUser.accessToken}`,
+        },
+      }
+    );
+    const data = await res.json();
+
+    return data.content;
+  };
+
+  const handlePageClick = async (data) => {
+    
+    
+    let currentPage = data.selected;
+
+    const expenseFormServer = await fetchExpense(currentPage);
+
+    setAllUsers(expenseFormServer);
+    // scroll to the top
+    //window.scrollTo(0, 0)
+  };
   return (
     <>
       {/* <div className="bottom mt-4"> */}
@@ -368,6 +421,28 @@ export default function Users() {
               />
               </Table>
             </div>
+
+            {/* pagination for the user items */}
+
+            <ReactPaginate
+              previousLabel={"previous"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination justify-content-center"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              activeClassName={"active"}
+            />
           </div>
         
       {/* </div> */}
