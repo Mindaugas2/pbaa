@@ -60,6 +60,7 @@ export default function Income() {
 
     if (response.status === 201) {
       successMessage("Pridėta!");
+      reset();
     } else {
       errorMessage("Klaida!");
     }
