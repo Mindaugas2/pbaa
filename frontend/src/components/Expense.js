@@ -336,7 +336,7 @@ export default function Expense() {
                 className="col-12 col-sm-6 col-md-6 col-lg-6 input-group my-3"
               >
                 <input
-                  {...register("expenseName", { required: true, minLength: 3, maxLength: 10  })}
+                  {...register("expenseName", { required: true, minLength: 3, maxLength: 20  })}
                   type="text"
                   className="form-control add__description"
                   placeholder="Aprašymas"
@@ -368,8 +368,8 @@ export default function Expense() {
 
                 <input
                   {...register("amount", {
-                    required: true
-              
+                    required: true,
+                    min: 0.01,
                   })}
                   type="number"
                   className="form-control add__value"
