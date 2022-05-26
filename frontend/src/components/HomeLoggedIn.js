@@ -6,6 +6,7 @@ import AuthService from "../services/auth.service";
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import ProgressBar from "@ramonak/react-progress-bar";
+import { right } from 'glamor';
 
 export default function HomeLoggedIn() {
     const currentUser = AuthService.getCurrentUser();
@@ -165,6 +166,7 @@ export default function HomeLoggedIn() {
                 borderWidth: 1,
             },
         ],
+
     };
 
 
@@ -186,39 +188,21 @@ export default function HomeLoggedIn() {
         fetchLimits();
     }, []);
 
-    ChartJS.register(ArcElement, Tooltip, Legend);
-    const limitsData = {
-        labels: chartLimitNames,
-        datasets: [
-            {
-                label: 'Limitai:',
-                data: chartLimitAmount,
-                backgroundColor: chartLimitColors,
-                borderColor: chartLimitColorsBorder,
-                borderWidth: 1,
-            },
-        ],
-    };
+    // ChartJS.register(ArcElement, Tooltip, Legend);
+    // const limitsData = {
+    //     labels: chartLimitNames,
+    //     datasets: [
+    //         {
+    //             label: 'Limitai:',
+    //             data: chartLimitAmount,
+    //             backgroundColor: chartLimitColors,
+    //             borderColor: chartLimitColorsBorder,
+    //             borderWidth: 1,
+    //         },
+    //     ],
+    // };
 
     return (
-        // <>
-        //     <div>
-        //         <h2>Sveiki {currentUser.email}</h2>
-        //     </div>
-
-        //     {/* <div>
-        //         <Header />
-        //     </div> */}
-        //     <div className='row'>
-        //         <div className='row col-8 ps-4'>
-        //             <div className='col-12 mt-4'><NavbarAna /></div>
-        //             <h2>Some content</h2>
-        //         </div>
-        //         <div className='col-4'>
-        //             <SideBar />
-        //         </div>
-        //     </div>
-        // </>
         <>
             <div className="container-fluid budget__expense">
                 <div className="container">
@@ -230,79 +214,6 @@ export default function HomeLoggedIn() {
                 </div>
             </div>
             <div className="container">
-                {/* <div className="col-6" style={{ paddingLeft: 0 }}>
-
-                    <div>
-                        <p>Mėnesio balansas</p>
-                        <p>Pajamos {incomeSum} EUR</p>
-                        <p>Išlaidos {expenseSum} EUR</p>
-                        <p>Likutis {savings} EUR</p>
-                        <p>Pajamų likutis išlaidoms, %</p>
-                        <ProgressBar completed={
-                            Math.round((savings) / ((incomeSum)) * 100)
-                        } maxCompleted={100}
-                            bgColor="#008F8C"
-
-                        />
-                    </div>
-                </div> */}
-
-                {/* <div className="row">
-                    <div className="col">
-                        <p>Šio mėnesio pajamos:</p>
-
-                        <div className="col-6">
-                            <Doughnut
-                                data={data}
-                                width={400}
-                                height={400}
-                                options={{ maintainAspectRatio: false }}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        <p>Šio mėnesio Išlaidos:</p>
-                        <div className="col-6">
-                            <Doughnut
-                                data={expenseData}
-                                width={400}
-                                height={400}
-                                options={{ maintainAspectRatio: false }}
-                            />
-                        </div>
-
-                    </div>
-                </div> */}
-                {/* <p>Limitų išnaudojimas:</p>
-                <div>
-                    {statistics.map((categoryStatistics) => {
-                        if (categoryStatistics.limit !== 0) {
-                            return (
-                                <div>
-                                    <div className='row'>
-                                        <div className='col-8'>
-                                            <p className='mb-pb-fix'>{categoryStatistics.category.name}</p>
-                                        </div>
-                                        <div className='col-4'>
-                                            <p style={{ textAlign: "end" }} className="mb-pb-fix">({categoryStatistics.limit}€)</p>
-                                        </div>
-                                    </div>
-
-                                    <ProgressBar
-                                        completed={Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100)}
-                                        maxCompleted={100}
-
-                                        bgColor={(Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100) < 100) ? "#008F8C" : "#e84d4d"}
-                                    />
-                                </div>
-                            )
-                        }
-                    })}
-                </div> */}
-                {/* 
- */}
-                {/*  */}
                 <main className="content">
                     <div className="container-fluid p-0">
 
@@ -438,7 +349,14 @@ export default function HomeLoggedIn() {
                                                 data={expenseData}
                                                 width={400}
                                                 height={400}
-                                                options={{ maintainAspectRatio: false }}
+                                                options={{
+                                                    maintainAspectRatio: false,
+                                                    plugins: {
+                                                        legend: {
+                                                            position: 'right'
+                                                        }
+                                                    }
+                                                }}
                                             />
                                         </div>
                                     </div>
@@ -457,7 +375,14 @@ export default function HomeLoggedIn() {
                                                 data={data}
                                                 width={400}
                                                 height={400}
-                                                options={{ maintainAspectRatio: false }}
+                                                options={{
+                                                    maintainAspectRatio: false,
+                                                    plugins: {
+                                                        legend: {
+                                                            position: 'right'
+                                                        }
+                                                    }
+                                                }}
                                             />
                                         </div>
                                     </div>
