@@ -112,12 +112,12 @@ export default function Navbar() {
                                                 Limitai
                                             </NavLink>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <NavLink to={"/category"}
                                                 className={({ isActive }) => (isActive ? 'active' : 'inactive')} >
                                                 Kategorijos
                                             </NavLink>
-                                        </li>
+                                        </li> */}
                                         {/* <li id="button-hover">
                                             <a href="/"
                                                 onClick={logOut}>
