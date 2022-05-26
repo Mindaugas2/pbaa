@@ -227,7 +227,7 @@ export default function Expense() {
   //let category = null;
 
   const onSubmit1 = async (fr) => {
-    if(fr.date1 == "" && fr.date2 == ""){
+    if (fr.date1 == "" && fr.date2 == "") {
       const res = await fetch(
         `http://localhost:8080/api/expense/userCategory?category=${fr.category}&offset=0&pageSize=${limit}`,
         {
@@ -241,28 +241,29 @@ export default function Expense() {
       const data = await res.json();
       setAllExpense(data.content);
       const total = data.totalPages;
-        
+
       setpageCount(total);
       return data.content;
     }
-    else{
-    const res = await fetch(
-      `http://localhost:8080/api/expense/userDate?date1=${fr.date1}&date2=${fr.date2}&category=${fr.category}&offset=0&pageSize=${limit}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${currentUser.accessToken}`,
-        },
-      }
-    );
-    const data = await res.json();
-    setAllExpense(data.content);
-    const total = data.totalPages;
-      
-    setpageCount(total);
+    else {
+      const res = await fetch(
+        `http://localhost:8080/api/expense/userDate?date1=${fr.date1}&date2=${fr.date2}&category=${fr.category}&offset=0&pageSize=${limit}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${currentUser.accessToken}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setAllExpense(data.content);
+      const total = data.totalPages;
 
-    return data.content;}
+      setpageCount(total);
+
+      return data.content;
+    }
   };
 
 
@@ -312,7 +313,7 @@ export default function Expense() {
     <>
 
 
-      <div className="container-fluid budget__expense">
+      <div className="container-fluid budget__expense sticky-config">
         <div className="container">
           <div className="row">
             <div className="col">
@@ -325,22 +326,22 @@ export default function Expense() {
       <div className="bottom ">
         <div className="container">
           <div >
-        <Accordion defaultActiveKey="0" >
-  <Accordion.Item eventKey="0" >
-    <Accordion.Header >Naujas įrašas</Accordion.Header>
-    <Accordion.Body >
-          <div className="add">
-            <div className="row text-center add__container">
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="col-12 col-sm-6 col-md-6 col-lg-6 input-group my-3"
-              >
-                <input
-                  {...register("expenseName", { required: true, minLength: 3, maxLength: 20  })}
-                  type="text"
-                  className="form-control add__description"
-                  placeholder="Aprašymas"
-                />
+            <Accordion defaultActiveKey="0" >
+              <Accordion.Item eventKey="0" >
+                <Accordion.Header >Naujas įrašas</Accordion.Header>
+                <Accordion.Body >
+                  <div className="add">
+                    <div className="row text-center add__container">
+                      <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="col-12 col-sm-6 col-md-6 col-lg-6 input-group my-3"
+                      >
+                        <input
+                          {...register("expenseName", { required: true, minLength: 3, maxLength: 20 })}
+                          type="text"
+                          className="form-control add__description"
+                          placeholder="Aprašymas"
+                        />
 
                         <input
                           {...register("date", {
@@ -366,16 +367,16 @@ export default function Expense() {
                           ))}
                         </select>
 
-                <input
-                  {...register("amount", {
-                    required: true,
-                    min: 0.01,
-                  })}
-                  type="number"
-                  className="form-control add__value"
-                  placeholder="Suma"
-                  step="0.01"
-                />
+                        <input
+                          {...register("amount", {
+                            required: true,
+                            min: 0.01,
+                          })}
+                          type="number"
+                          className="form-control add__value"
+                          placeholder="Suma"
+                          step="0.01"
+                        />
 
                         <div className="input-group-append">
                           <button className="btn" type="submit">
@@ -386,139 +387,139 @@ export default function Expense() {
                           </button>
                         </div>
                       </form>
-                </div>
-            <div className="row ">
-              <div className="col-sm-3 col-3">
-                {errors?.expenseName?.type === "required" && (
-                  <p>Šis laukas yra privalomas</p>
-                )}
-                {errors?.expenseName?.type === "minLength" && (
-                  <p>Aprašymas turi būti bent 3 simbolių ilgio</p>
-                )}
-                {errors?.incomeName?.type === "maxLength" && (
-                  <p>Aprašymas negali būti ilgesnis negu 10 simbolių</p>
-                )}
-              </div>
-              <div className="col-sm-3 col-3">
-                {errors?.date?.type === "required" && (
-                  <p>Šis laukas yra privalomas</p>
-                )}
-                {errors?.date?.type === "max" && (
-                  <p>Naujesnių nei šiandien įrašų negali būti</p>
-                )}
-              </div>
-              <div className="col-sm-3 col-3">
-                {errors?.categoryId?.type === "required" && (
-                  <p>Šis laukas yra privalomas</p>
-                )}
-                {errors?.categoryId?.type === "minLength" && (
-                  <p>Aprašymas turi būti bent 4 simbolių ilgio</p>
-                )}
-              </div>
+                    </div>
+                    <div className="row ">
+                      <div className="col-sm-3 col-3">
+                        {errors?.expenseName?.type === "required" && (
+                          <p>Šis laukas yra privalomas</p>
+                        )}
+                        {errors?.expenseName?.type === "minLength" && (
+                          <p>Aprašymas turi būti bent 3 simbolių ilgio</p>
+                        )}
+                        {errors?.incomeName?.type === "maxLength" && (
+                          <p>Aprašymas negali būti ilgesnis negu 10 simbolių</p>
+                        )}
+                      </div>
+                      <div className="col-sm-3 col-3">
+                        {errors?.date?.type === "required" && (
+                          <p>Šis laukas yra privalomas</p>
+                        )}
+                        {errors?.date?.type === "max" && (
+                          <p>Naujesnių nei šiandien įrašų negali būti</p>
+                        )}
+                      </div>
+                      <div className="col-sm-3 col-3">
+                        {errors?.categoryId?.type === "required" && (
+                          <p>Šis laukas yra privalomas</p>
+                        )}
+                        {errors?.categoryId?.type === "minLength" && (
+                          <p>Aprašymas turi būti bent 4 simbolių ilgio</p>
+                        )}
+                      </div>
 
-              <div className="col-sm-3 col-3">
-                {errors?.amount?.type === "required" && (
-                  <p>Šis laukas yra privalomas</p>
-                )}
-                {errors?.amount?.type === "min" && (
-                  <p>Mažiausia įvestinų išlaidų suma yra 0.01 &euro;</p>
-                )}
-              </div>
-            </div>
+                      <div className="col-sm-3 col-3">
+                        {errors?.amount?.type === "required" && (
+                          <p>Šis laukas yra privalomas</p>
+                        )}
+                        {errors?.amount?.type === "min" && (
+                          <p>Mažiausia įvestinų išlaidų suma yra 0.01 &euro;</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="1">
+                <Accordion.Header>Įrašų filtravimas</Accordion.Header>
+                <Accordion.Body>
+                  <div className="add">
+                    <div className="row text-center add__container">
+                      <form
+                        onSubmit={handleSubmit2(onSubmit1)}
+                        className="col-12 col-sm-6 col-md-6 col-lg-6 input-group my-3"
+                      >
+                        <input
+                          {...register2("date1", {
+                            //value: today2,
+                            //required: true,
+                            max: today,
+                          })}
+                          type="date"
+                          className="form-control add__date"
+                          placeholder="Data"
+                        />
+
+                        <input
+                          {...register2("date2", {
+                            //value: today,
+                            //required: true,
+                            max: today,
+                          })}
+                          type="date"
+                          className="form-control add__date"
+                          placeholder="Data"
+                        />
+
+                        <select
+                          {...register2("category", {
+                            required: true,
+                          })}
+                          className="form-control add__description"
+                          type="text"
+                        >
+                          <option value={""}>--Pasirinkite kategoriją--</option>
+                          {allCategory.map((option) => (
+                            <option value={option.name}>{option.name}</option>
+                          ))}
+                        </select>
+
+
+
+                        <div className="input-group-append">
+                          <button className="btn" type="submit">
+                            <FontAwesomeIcon
+                              icon={faCirclePlus}
+                              className="add__btn__expense"
+                            />
+                          </button>
+                        </div>
+                      </form>
+
+                    </div>
+
+                    <div className="row ">
+                      <div className="col-sm-4 col-4">
+                        {errors2?.date1?.type === "required" && (
+                          <p>Šis laukas yra privalomas</p>
+                        )}
+                        {errors2?.date1?.type === "max" && (
+                          <p>Naujesnių nei šiandien įrašų negali būti</p>
+                        )}
+                      </div>
+                      <div className="col-sm-4 col-4">
+                        {errors2?.date2?.type === "required" && (
+                          <p>Šis laukas yra privalomas</p>
+                        )}
+                        {errors2?.date2?.type === "max" && (
+                          <p>Naujesnių nei šiandien įrašų negali būti</p>
+                        )}
+                      </div>
+                      <div className="col-sm-4 col-4">
+                        {errors2?.category?.type === "required" && (
+                          <p>Šis laukas yra privalomas</p>
+                        )}
+                        {errors2?.category?.type === "minLength" && (
+                          <p>Aprašymas turi būti bent 4 simbolių ilgio</p>
+                        )}
+                      </div>
+
+
+                    </div>
+                  </div>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
           </div>
-          </Accordion.Body>
-  </Accordion.Item>
-  <Accordion.Item eventKey="1">
-    <Accordion.Header>Įrašų filtravimas</Accordion.Header>
-    <Accordion.Body>
-    <div className="add">
-            <div className="row text-center add__container">
-              <form
-                onSubmit={handleSubmit2(onSubmit1)}
-                className="col-12 col-sm-6 col-md-6 col-lg-6 input-group my-3"
-              >
-                <input
-                  {...register2("date1", {
-                    //value: today2,
-                    //required: true,
-                    max: today,
-                  })}
-                  type="date"
-                  className="form-control add__date"
-                  placeholder="Data"
-                />
-
-                <input
-                  {...register2("date2", {
-                    //value: today,
-                    //required: true,
-                    max: today,
-                  })}
-                  type="date"
-                  className="form-control add__date"
-                  placeholder="Data"
-                />
-
-                <select
-                  {...register2("category", {
-                    required: true,
-                  })}
-                  className="form-control add__description"
-                  type="text"
-                >
-                  <option value={""}>--Pasirinkite kategoriją--</option>
-                  {allCategory.map((option) => (
-                    <option value={option.name}>{option.name}</option>
-                  ))}
-                </select>
-
-                
-
-                <div className="input-group-append">
-                  <button className="btn" type="submit">
-                    <FontAwesomeIcon
-                      icon={faCirclePlus}
-                      className="add__btn__expense"
-                    />
-                  </button>
-                </div>
-              </form>
-              
-            </div>
-
-            <div className="row ">
-            <div className="col-sm-4 col-4">
-                {errors2?.date1?.type === "required" && (
-                  <p>Šis laukas yra privalomas</p>
-                )}
-                {errors2?.date1?.type === "max" && (
-                  <p>Naujesnių nei šiandien įrašų negali būti</p>
-                )}
-              </div>
-              <div className="col-sm-4 col-4">
-                {errors2?.date2?.type === "required" && (
-                  <p>Šis laukas yra privalomas</p>
-                )}
-                {errors2?.date2?.type === "max" && (
-                  <p>Naujesnių nei šiandien įrašų negali būti</p>
-                )}
-              </div>
-              <div className="col-sm-4 col-4">
-                {errors2?.category?.type === "required" && (
-                  <p>Šis laukas yra privalomas</p>
-                )}
-                {errors2?.category?.type === "minLength" && (
-                  <p>Aprašymas turi būti bent 4 simbolių ilgio</p>
-                )}
-              </div>
-
-              
-            </div>
-          </div>
-    </Accordion.Body>
-  </Accordion.Item>
-</Accordion>
-</div>
         </div>
 
         {/* <div className="mt-5 list"> */}

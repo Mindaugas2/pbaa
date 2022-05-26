@@ -204,7 +204,7 @@ export default function HomeLoggedIn() {
 
     return (
         <>
-            <div className="container-fluid budget__expense">
+            <div className="container-fluid budget__expense sticky-config">
                 <div className="container">
                     <div className="row">
                         <div className="col">
@@ -216,9 +216,6 @@ export default function HomeLoggedIn() {
             <div className="container">
                 <main className="content">
                     <div className="container-fluid p-0">
-
-                        {/* <h1 className="h3 mb-3"><strong>Analytics</strong> Dashboard</h1> */}
-
                         <div className="row">
                             <div className="col-xl-6 col-xxl-5 d-flex">
                                 <div className="w-100">
