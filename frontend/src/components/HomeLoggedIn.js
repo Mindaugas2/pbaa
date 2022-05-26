@@ -238,7 +238,6 @@ export default function HomeLoggedIn() {
                         <p>Išlaidos {expenseSum} EUR</p>
                         <p>Likutis {savings} EUR</p>
                         <p>Pajamų likutis išlaidoms, %</p>
-
                         <ProgressBar completed={
                             Math.round((savings) / ((incomeSum)) * 100)
                         } maxCompleted={100} />
@@ -261,7 +260,6 @@ export default function HomeLoggedIn() {
 
                     <div className="col">
                         <p>Šio mėnesio Išlaidos:</p>
-
                         <div className="col-6">
                             <Doughnut
                                 data={expenseData}
@@ -273,47 +271,6 @@ export default function HomeLoggedIn() {
 
                     </div>
                 </div>
-                {/* <div className="container">
-
-                    <div className="row">
-                        <div className="col">
-                            <p>Šio mėnesio pajamos:</p>
-
-                            <div className="col-6">
-                                <Doughnut
-                                    data={data}
-                                    width={400}
-                                    height={400}
-                                    options={{ maintainAspectRatio: false }}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="col">
-                            <p>Šio mėnesio Išlaidos:</p>
-
-                            <div className="col-6">
-                                <Doughnut
-                                    data={expenseData}
-                                    width={400}
-                                    height={400}
-                                    options={{ maintainAspectRatio: false }}
-                                />
-                            </div>
-
-                        </div> */}
-
-                {/* <p>Limitai:</p>
-
-                <div className="col-6">
-                    <Doughnut
-                        data={limitsData}
-                        width={200}
-                        height={200}
-                        options={{ maintainAspectRatio: false }}
-                    />
-
-                </div> */}
                 <p>Limitų išnaudojimas:</p>
                 <div>
                     {statistics.map((categoryStatistics) => {
@@ -339,6 +296,160 @@ export default function HomeLoggedIn() {
                         }
                     })}
                 </div>
+                {/* 
+ */}
+                {/*  */}
+                <main className="content">
+                    <div className="container-fluid p-0">
+
+                        {/* <h1 className="h3 mb-3"><strong>Analytics</strong> Dashboard</h1> */}
+
+                        <div className="row">
+                            <div className="col-xl-6 col-xxl-5 d-flex">
+                                <div className="w-100">
+                                    <div className="row">
+                                        <div className="col-sm-6">
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <div className="row">
+                                                        <div className="col mt-0">
+                                                            <h5 className="card-title">Likutis</h5>
+                                                        </div>
+
+                                                        <div className="col-auto">
+                                                            <div className="stat text-primary">
+                                                                <i className="align-middle" data-feather="truck"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <h1 className="mt-1 mb-3">{savings} €</h1>
+                                                </div>
+                                            </div>
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <div className="row">
+                                                        <div className="col mt-0">
+                                                            <h5 className="card-title">Visitors</h5>
+                                                        </div>
+
+                                                        <div className="col-auto">
+                                                            <div className="stat text-primary">
+                                                                <i className="align-middle" data-feather="users"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <h1 className="mt-1 mb-3">14.212</h1>
+                                                    <div className="mb-0">
+                                                        <span className="text-success"> <i className="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
+                                                        <span className="text-muted">Since last week</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <div className="row">
+                                                        <div className="col mt-0">
+                                                            <h5 className="card-title">Pajamų likutis išlaidoms, %</h5>
+                                                        </div>
+
+                                                        <div className="col-auto">
+                                                            <div className="stat text-primary">
+                                                                <i className="align-middle" data-feather="dollar-sign"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <ProgressBar completed={
+                                                        Math.round((savings) / ((incomeSum)) * 100)
+                                                    } maxCompleted={100}
+                                                        bgColor="#008F8C" />
+                                                    {/* <h1 className="mt-1 mb-3">$21.300</h1>
+                                                    <div className="mb-0">
+                                                        <span className="text-success"> <i className="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
+                                                        <span className="text-muted">Since last week</span>
+                                                    </div> */}
+                                                </div>
+                                            </div>
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <div className="row">
+                                                        <div className="col mt-0">
+                                                            <h5 className="card-title">Orders</h5>
+                                                        </div>
+
+                                                        <div className="col-auto">
+                                                            <div className="stat text-primary">
+                                                                <i className="align-middle" data-feather="shopping-cart"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <h1 className="mt-1 mb-3">64</h1>
+                                                    <div className="mb-0">
+                                                        <span className="text-danger"> <i className="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
+                                                        <span className="text-muted">Since last week</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-xl-6 col-xxl-7">
+                                <div className="card flex-fill w-100">
+                                    <div className="card-header">
+
+                                        <h5 className="card-title mb-0">Recent Movement</h5>
+                                    </div>
+                                    <div className="card-body py-3">
+                                        <div className="chart chart-sm">
+                                            <canvas id="chartjs-dashboard-line"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
+                                <div className="card flex-fill w-100">
+                                    <div className="card-header">
+
+                                        <h5 className="card-title mb-0">Browser Usage</h5>
+                                    </div>
+                                    <div className="card-body d-flex">
+                                        <div className="align-self-center w-100">
+                                            <div className="py-3">
+                                                <div className="chart chart-xs">
+                                                    <canvas id="chartjs-dashboard-pie"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
+                                <div className="card flex-fill">
+                                    <div className="card-header">
+
+                                        <h5 className="card-title mb-0">Calendar</h5>
+                                    </div>
+                                    <div className="card-body d-flex">
+                                        <div className="align-self-center w-100">
+                                            <div className="chart">
+                                                <div id="datetimepicker-dashboard"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </main>
+
 
                 {/* </div> */}
                 {/* </div> */}
