@@ -10,6 +10,7 @@ import EditUserModal from "./EditUserModal";
 import DeleteModal from "./DeleteModal";
 import ReactPaginate from "react-paginate";
 import Table from "react-bootstrap/Table";
+import "./Pagination.css";
 
 export default function Users() {
   const [allUsers, setAllUsers] = useState([]);
@@ -165,8 +166,8 @@ export default function Users() {
   };
 
   const handlePageClick = async (data) => {
-    
-    
+
+
     let currentPage = data.selected;
 
     const expenseFormServer = await fetchExpense(currentPage);
@@ -187,129 +188,129 @@ export default function Users() {
           </div>
         </div>
       </div>
-        <div className="container">
-          <div className="" >
-            {/* <h2 className="">Pridėti naują vartotoją</h2> */}
-            <div className="row text-center add__container ">
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="input-group my-2 justify-content-center"
-              >
-                <div className="col-2 p-0 pe-2">
-                  <input
-                    {...register("username", {
-                      required: true,
-                      minLength: 4,
-                    })}
-                    type="text"
-                    className="form-control add__description"
-                    placeholder="Vardas"
-                  />
-                  {errors?.username?.type === "required" && (
-                    <p>Šis laukas yra privalomas</p>
-                  )}
-                  {errors?.username?.type === "minLength" && (
-                    <p>Vardas turi būti bent 4 simbolių ilgio</p>
-                  )}
-                </div>
+      <div className="container">
+        <div className="" >
+          {/* <h2 className="">Pridėti naują vartotoją</h2> */}
+          <div className="row text-center add__container ">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="input-group my-2 justify-content-center"
+            >
+              <div className="col-2 p-0 pe-2">
+                <input
+                  {...register("username", {
+                    required: true,
+                    minLength: 4,
+                  })}
+                  type="text"
+                  className="form-control add__description"
+                  placeholder="Vardas"
+                />
+                {errors?.username?.type === "required" && (
+                  <p>Šis laukas yra privalomas</p>
+                )}
+                {errors?.username?.type === "minLength" && (
+                  <p>Vardas turi būti bent 4 simbolių ilgio</p>
+                )}
+              </div>
 
-                <div className="col-2 p-0 pe-2">
-                  <input
-                    {...register("email", {
-                      required: true,
-                      minLength: 4,
-                    })}
-                    type="email"
-                    className="form-control add__value"
-                    placeholder="El. paštas"
-                  />
-                  {errors?.email?.type === "required" && (
-                    <p>Šis laukas yra privalomas</p>
-                  )}
-                  {errors?.email?.type === "minLength" && (
-                    <p>El-paštas turi būti sudarytas iš bent 4 simbolių</p>
-                  )}
-                  {submitResponse === 400 && (
-                    <p>El. paštas jau yra naudojamas</p>
-                  )}
-                </div>
+              <div className="col-2 p-0 pe-2">
+                <input
+                  {...register("email", {
+                    required: true,
+                    minLength: 4,
+                  })}
+                  type="email"
+                  className="form-control add__value"
+                  placeholder="El. paštas"
+                />
+                {errors?.email?.type === "required" && (
+                  <p>Šis laukas yra privalomas</p>
+                )}
+                {errors?.email?.type === "minLength" && (
+                  <p>El-paštas turi būti sudarytas iš bent 4 simbolių</p>
+                )}
+                {submitResponse === 400 && (
+                  <p>El. paštas jau yra naudojamas</p>
+                )}
+              </div>
 
-                <div className="col-2 p-0 pe-2">
-                  <input
-                    {...register("password", {
-                      required: true,
-                      minLength: 6,
-                    })}
-                    type="password"
-                    className="form-control add__value"
-                    placeholder="Slaptažodis"
-                  />
-                  {errors?.password?.type === "required" && (
-                    <p>Šis laukas yra privalomas</p>
-                  )}
-                  {errors?.password?.type === "minLength" && (
-                    <p>Slaptažodis turi būti bent 6 simbolių ilgio </p>
-                  )}
-                </div>
+              <div className="col-2 p-0 pe-2">
+                <input
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                  })}
+                  type="password"
+                  className="form-control add__value"
+                  placeholder="Slaptažodis"
+                />
+                {errors?.password?.type === "required" && (
+                  <p>Šis laukas yra privalomas</p>
+                )}
+                {errors?.password?.type === "minLength" && (
+                  <p>Slaptažodis turi būti bent 6 simbolių ilgio </p>
+                )}
+              </div>
 
-                <div className="col-2 p-0">
-                  <input
-                    {...register("password_repeat", {
-                      validate: (value) =>
-                        value === password.current || "Slaptažodžiai nesutampa",
-                    })}
-                    type="password"
-                    className="form-control"
-                    placeholder="Pakartoti slaptažodį"
-                  />
-                  {errors.password_repeat && (
-                    <p>{errors.password_repeat.message}</p>
-                  )}
-                </div>
+              <div className="col-2 p-0">
+                <input
+                  {...register("password_repeat", {
+                    validate: (value) =>
+                      value === password.current || "Slaptažodžiai nesutampa",
+                  })}
+                  type="password"
+                  className="form-control"
+                  placeholder="Pakartoti slaptažodį"
+                />
+                {errors.password_repeat && (
+                  <p>{errors.password_repeat.message}</p>
+                )}
+              </div>
 
-                <div className="col-4 p-0">
-                  <label htmlFor="admin" className="ms-1">
-                    Admin.?
-                  </label>
-                  <input
-                    {...register("admin")}
-                    name="admin"
-                    type="checkbox"
-                    className="ms-1"
-                  />
+              <div className="col-4 p-0">
+                <label htmlFor="admin" className="ms-1">
+                  Admin.?
+                </label>
+                <input
+                  {...register("admin")}
+                  name="admin"
+                  type="checkbox"
+                  className="ms-1"
+                />
 
-                  <button className="btn" type="submit">
-                    <FontAwesomeIcon
-                      icon={faCirclePlus}
-                      className="add__btn__income"
-                    />
-                  </button>
-                </div>
-              </form>
-            </div>
+                <button className="btn" type="submit">
+                  <FontAwesomeIcon
+                    icon={faCirclePlus}
+                    className="add__btn__income"
+                  />
+                </button>
+              </div>
+            </form>
           </div>
         </div>
+      </div>
 
-        
-          <div className="container" style={{ paddingRight: 0 }}>
-            <div
-              className="col-12 username"
-              style={{ paddingLeft: 0, paddingRight: 0 }}
-            >
-              {/* <h2 className="income__title">Vartotojai</h2> */}
-              <div className="container income__list"
-               style={{ paddingLeft: 0, paddingRight: 0 }}></div>
 
-              <Table hover>
-                <thead>
-                  <tr>
-                    <th>Vardas</th>
-                    <th>El. paštas</th>
-                    <th>Rolė</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
+      <div className="container" style={{ paddingRight: 0 }}>
+        <div
+          className="col-12 username"
+          style={{ paddingLeft: 0, paddingRight: 0 }}
+        >
+          {/* <h2 className="income__title">Vartotojai</h2> */}
+          <div className="container income__list"
+            style={{ paddingLeft: 0, paddingRight: 0 }}></div>
+
+          <Table hover>
+            <thead>
+              <tr>
+                <th>Vardas</th>
+                <th>El. paštas</th>
+                <th>Rolė</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
               {/* Display users on the page */}
               {allUsers.map((users) => {
                 // Show everyone but currently logged in user
@@ -363,88 +364,88 @@ export default function Users() {
                     //   </div>
                     // </div>
                     <tr key={users.id}>
-                      
-                        <td>{users.username}&nbsp;</td>
-                        <td>
-                          {users.email}&nbsp;
-                        </td>
-                        <td>
-                          {/* {users.roles.map(roles => {
+
+                      <td>{users.username}&nbsp;</td>
+                      <td>
+                        {users.email}&nbsp;
+                      </td>
+                      <td>
+                        {/* {users.roles.map(roles => {
                                                 return(
                                                     <div key={roles.id}>
                                                         {roles.name}
                                                     </div>
                                                 )
                                             })} */}
-                          {users.roles.map((roles) => (
-                            <p>{roles.name}</p>
-                          ))}
-                        </td>
+                        {users.roles.map((roles) => (
+                          <p>{roles.name}</p>
+                        ))}
+                      </td>
 
-                        <td
-                          className="col-2"
-                          style={{ textAlign: "right", paddingRight: 0 }}
+                      <td
+                        className="col-2"
+                        style={{ textAlign: "right", paddingRight: 0 }}
+                      >
+                        <EditUserModal
+                          id={users.id}
+                          username={users.username}
+                          email={users.email}
+                          roles={users.roles}
+                          forceRender={forceRender}
+                          setForceRender={setForceRender}
+                        />
+
+                        <button
+                          // onClick={() => removeUser(users.id)}
+                          onClick={() => showDeleteModal(users.id)}
+                          className="btn"
+                          type="button"
                         >
-                          <EditUserModal
-                            id={users.id}
-                            username={users.username}
-                            email={users.email}
-                            roles={users.roles}
-                            forceRender={forceRender}
-                            setForceRender={setForceRender}
+                          <FontAwesomeIcon
+                            icon="trash"
+                            className="add__btn__income"
+                            style={{ width: "20px" }}
                           />
+                        </button>
+                      </td>
 
-                          <button
-                            // onClick={() => removeUser(users.id)}
-                            onClick={() => showDeleteModal(users.id)}
-                            className="btn"
-                            type="button"
-                          >
-                            <FontAwesomeIcon
-                              icon="trash"
-                              className="add__btn__income"
-                              style={{ width: "20px" }}
-                            />
-                          </button>
-                        </td>
-                      
                     </tr>
                   );
                 }
               })}
             </tbody>
-              <DeleteModal
-                showModal={displayDeleteModal}
-                hideModal={hideDeleteModal}
-                confirmModal={removeUser}
-                id={deleteId}
-              />
-              </Table>
-            </div>
-
-            {/* pagination for the user items */}
-
-            <ReactPaginate
-              previousLabel={"previous"}
-              nextLabel={"next"}
-              breakLabel={"..."}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={3}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination justify-content-center"}
-              pageClassName={"page-item"}
-              pageLinkClassName={"page-link"}
-              previousClassName={"page-item"}
-              previousLinkClassName={"page-link"}
-              nextClassName={"page-item"}
-              nextLinkClassName={"page-link"}
-              breakClassName={"page-item"}
-              breakLinkClassName={"page-link"}
-              activeClassName={"active"}
+            <DeleteModal
+              showModal={displayDeleteModal}
+              hideModal={hideDeleteModal}
+              confirmModal={removeUser}
+              id={deleteId}
             />
-          </div>
-        
+          </Table>
+        </div>
+
+        {/* pagination for the user items */}
+
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      </div>
+
       {/* </div> */}
     </>
   );

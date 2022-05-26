@@ -12,6 +12,7 @@ import DeleteModal from "./DeleteModal";
 import ReactPaginate from "react-paginate";
 import Table from "react-bootstrap/Table";
 import { Pagination } from "react-bootstrap";
+import "./Pagination.css";
 
 // This code copypasted from: https://codepen.io/fido123/pen/xzvxNw
 // JavaScript is not included in this code, only html and css
@@ -227,7 +228,7 @@ export default function ExpenseLimit() {
                 onSubmit={handleSubmit(onSubmit)}
                 className="col-12 col-sm-6 col-md-6 col-lg-6 input-group my-3"
               >
-               
+
                 <select
                   {...register("categoryId", {
                     required: true,
@@ -307,7 +308,7 @@ export default function ExpenseLimit() {
                   {/* Display user's expense on the page */}
                   {allExpenseLimit.map((expenseLimit) => {
                     return (
-                    
+
                       <tr key={expenseLimit.id}>
                         <td>{expenseLimit.expensesCategory.name}&nbsp;</td>
                         <td>{expenseLimit.amount}&euro;&nbsp;</td>
@@ -356,7 +357,7 @@ export default function ExpenseLimit() {
               </Table>
             </div>
             {/* pagination for the user items */}
-            
+
             <ReactPaginate
               previousLabel={"previous"}
               nextLabel={"next"}
@@ -376,7 +377,7 @@ export default function ExpenseLimit() {
               breakLinkClassName={"page-link"}
               activeClassName={"active"}
             />
-            
+
           </div>
         </div>
         {/* </div> */}
