@@ -118,7 +118,7 @@ export default function EditIncomeModal({ id, incomeName, date, amount, forceRen
                                     {
                                         required: true,
                                         minLength: 3,
-                                        maxLength: 10
+                                        maxLength: 20
                                     })
                                 }
                                 type="text"
