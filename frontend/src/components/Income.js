@@ -232,7 +232,7 @@ export default function Income() {
                 className="input-group my-3"
               >
                 <input
-                  {...register("incomeName", { required: true, minLength: 3 })}
+                  {...register("incomeName", { required: true, minLength: 3, maxLength: 10 })}
                   type="text"
                   className="form-control add__description"
                   placeholder="Aprašymas"
@@ -278,6 +278,9 @@ export default function Income() {
                 )}
                 {errors?.incomeName?.type === "minLength" && (
                   <p>Aprašymas turi būti bent 3 simbolių ilgio</p>
+                )}
+                 {errors?.incomeName?.type === "maxLength" && (
+                  <p>Aprašymas negali būti ilgesnis negu 10 simbolių</p>
                 )}
               </div>
               <div className="col-sm-4 col-4">

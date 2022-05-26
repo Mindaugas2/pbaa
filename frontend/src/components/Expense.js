@@ -316,7 +316,7 @@ export default function Expense() {
                 className="col-12 col-sm-6 col-md-6 col-lg-6 input-group my-3"
               >
                 <input
-                  {...register("expenseName", { required: true, minLength: 3 })}
+                  {...register("expenseName", { required: true, minLength: 3, maxLength: 10  })}
                   type="text"
                   className="form-control add__description"
                   placeholder="Aprašymas"
@@ -376,6 +376,9 @@ export default function Expense() {
                 )}
                 {errors?.expenseName?.type === "minLength" && (
                   <p>Aprašymas turi būti bent 3 simbolių ilgio</p>
+                )}
+                {errors?.incomeName?.type === "maxLength" && (
+                  <p>Aprašymas negali būti ilgesnis negu 10 simbolių</p>
                 )}
               </div>
               <div className="col-sm-3 col-3">
