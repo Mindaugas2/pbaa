@@ -118,7 +118,8 @@ export default function EditExpenseModal({ id, expenseName, categoryId, date, am
                                 {...register("expenseName",
                                     {
                                         required: true,
-                                        minLength: 3
+                                        minLength: 3,
+                                        maxLength: 20
                                     })
                                 }
                                 type="text"
@@ -128,6 +129,7 @@ export default function EditExpenseModal({ id, expenseName, categoryId, date, am
                             />
                             {errors?.expenseName?.type === "required" && <p>Laukas negali būti tuščias</p>}
                             {errors?.expenseName?.type === "minLength" && <p>Aprašymas turi būti sudarytas iš bent 3 simbolių</p>}
+                            {errors?.incomeName?.type === "maxLength" && <p>Aprašymas negali būti ilgesnis negu 10 simbolių</p>}
 
                             <input
                                 {...register("date",

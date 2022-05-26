@@ -117,7 +117,8 @@ export default function EditIncomeModal({ id, incomeName, date, amount, forceRen
                                 {...register("incomeName",
                                     {
                                         required: true,
-                                        minLength: 3
+                                        minLength: 3,
+                                        maxLength: 20
                                     })
                                 }
                                 type="text"
@@ -127,6 +128,7 @@ export default function EditIncomeModal({ id, incomeName, date, amount, forceRen
                             />
                             {errors?.incomeName?.type === "required" && <p>Laukas negali būti tuščias</p>}
                             {errors?.incomeName?.type === "minLength" && <p>Aprašymas turi būti sudarytas iš bent 3 simbolių</p>}
+                            {errors?.incomeName?.type === "maxLength" && <p>Aprašymas negali būti ilgesnis negu 10 simbolių</p>}
 
                             <input
                                 {...register("date",
