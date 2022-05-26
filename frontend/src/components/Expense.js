@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./IncomeAndExpense.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthService from "../services/auth.service";
@@ -457,7 +458,7 @@ export default function Expense() {
                         <div className="input-group-append">
                           <button className="btn" type="submit">
                             <FontAwesomeIcon
-                              icon={faCirclePlus}
+                              icon={faCircleCheck}
                               className="add__btn__expense"
                             />
                           </button>
