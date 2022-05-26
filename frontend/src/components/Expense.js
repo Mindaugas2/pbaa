@@ -652,7 +652,7 @@ export default function Expense() {
 
           </div>
           {/* This section is CSV export button */}
-          <button type="submit" className="btn btn-lg" style={{ float: "right", backgroundColor: "#74bdee" }}>
+          <button type="submit" className="btn btn-lg" style={{ float: "right", backgroundColor: "#008F8C" }}>
             <ReactCSV allExpenses={allExpense2} />
           </button>
 
