@@ -230,7 +230,7 @@ export default function HomeLoggedIn() {
                 </div>
             </div>
             <div className="container">
-                <div className="col-6" style={{ paddingLeft: 0 }}>
+                {/* <div className="col-6" style={{ paddingLeft: 0 }}>
 
                     <div>
                         <p>Mėnesio balansas</p>
@@ -245,7 +245,7 @@ export default function HomeLoggedIn() {
 
                         />
                     </div>
-                </div>
+                </div> */}
 
                 <div className="row">
                     <div className="col">
@@ -292,7 +292,8 @@ export default function HomeLoggedIn() {
                                     <ProgressBar
                                         completed={Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100)}
                                         maxCompleted={100}
-                                        bgColor="#008F8C"
+
+                                        bgColor={(Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100) < 100) ? "#008F8C" : "#e84d4d"}
                                     />
                                 </div>
                             )
@@ -325,14 +326,14 @@ export default function HomeLoggedIn() {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <h1 className="mt-1 mb-3">{savings} €</h1>
+                                                    <h1 className="mt-2 mb-2">{savings} €</h1>
                                                 </div>
                                             </div>
                                             <div className="card">
                                                 <div className="card-body">
                                                     <div className="row">
                                                         <div className="col mt-0">
-                                                            <h5 className="card-title">Visitors</h5>
+                                                            <h5 className="card-title">Pajamos</h5>
                                                         </div>
 
                                                         <div className="col-auto">
@@ -341,11 +342,7 @@ export default function HomeLoggedIn() {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <h1 className="mt-1 mb-3">14.212</h1>
-                                                    <div className="mb-0">
-                                                        <span className="text-success"> <i className="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                                        <span className="text-muted">Since last week</span>
-                                                    </div>
+                                                    <h1 className="mt-2 mb-2">{incomeSum} €</h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -366,19 +363,15 @@ export default function HomeLoggedIn() {
                                                     <ProgressBar completed={
                                                         Math.round((savings) / ((incomeSum)) * 100)
                                                     } maxCompleted={100}
-                                                        bgColor="#008F8C" />
-                                                    {/* <h1 className="mt-1 mb-3">$21.300</h1>
-                                                    <div className="mb-0">
-                                                        <span className="text-success"> <i className="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-                                                        <span className="text-muted">Since last week</span>
-                                                    </div> */}
+                                                        bgColor="#008F8C"
+                                                        className="mt-3 mb-1" />
                                                 </div>
                                             </div>
                                             <div className="card">
                                                 <div className="card-body">
                                                     <div className="row">
                                                         <div className="col mt-0">
-                                                            <h5 className="card-title">Orders</h5>
+                                                            <h5 className="card-title">Išlaidos</h5>
                                                         </div>
 
                                                         <div className="col-auto">
@@ -387,11 +380,7 @@ export default function HomeLoggedIn() {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <h1 className="mt-1 mb-3">64</h1>
-                                                    <div className="mb-0">
-                                                        <span className="text-danger"> <i className="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-                                                        <span className="text-muted">Since last week</span>
-                                                    </div>
+                                                    <h1 className="mt-2 mb-2">{expenseSum} €</h1>
                                                 </div>
                                             </div>
                                         </div>
