@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/user/income/{id}")
-    public ResponseEntity<Map<String, Integer>> getAllIncomesStatisticsByUserId(@PathVariable Long id) {
+    public ResponseEntity<Map<String, BigDecimal>> getAllIncomesStatisticsByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(this.statisticsService.getAllIncomeStatisticByUser(id));
     }
 

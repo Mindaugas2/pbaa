@@ -48,14 +48,14 @@ public class StatisticsService {
     return expenseUnitStatisticList;
     }
 
-    public Map<String, Integer> getAllIncomeStatisticByUser(Long id) {
+    public Map<String, BigDecimal> getAllIncomeStatisticByUser(Long id) {
         List<Income> allIncomes = incomeService.getAllIncomeByUser(id);
         List<Income> thisMonthIncomes = allIncomes.stream().filter(expense -> !expense.getDate().isBefore(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1))).collect(Collectors.toList());
         return thisMonthIncomes.stream().collect(
                 Collectors.toMap(
                         income -> income.getIncomeName(),
-                        income -> income.getAmount().intValue(),
-                        Integer::sum
+                        income -> income.getAmount(),
+                        BigDecimal::add
                 )
         );
     }
