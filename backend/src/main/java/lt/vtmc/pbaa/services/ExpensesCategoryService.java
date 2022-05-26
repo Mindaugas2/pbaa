@@ -20,8 +20,8 @@ public class ExpensesCategoryService {
         this.expensesCategoryRepository = expensesCategoryRepository;
     }
 
-    public List<ExpensesCategoryResponse> getAllExpensesCategories() {
-        return expensesCategoryRepository.findAll().stream().map(category -> new ExpensesCategoryResponse(category.getId(), category.getName())).collect(Collectors.toList());
+    public List<ExpensesCategory> getAllExpensesCategories() {
+        return expensesCategoryRepository.findAll();
     }
 
     public ExpensesCategoryResponse deleteExpensesCategory(Long id) {
