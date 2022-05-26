@@ -230,7 +230,7 @@ export default function HomeLoggedIn() {
                 </div>
             </div>
             <div className="container">
-                <div className="col-6">
+                <div className="col-6" style={{paddingLeft:0}}>
 
                     <div>
                         <p>Mėnesio balansas</p>
@@ -241,7 +241,10 @@ export default function HomeLoggedIn() {
 
                         <ProgressBar completed={
                             Math.round((savings) / ((incomeSum)) * 100)
-                        } maxCompleted={100} />
+                        } maxCompleted={100} 
+                        bgColor="#008F8C"
+
+                        />
                     </div>
                 </div>
 

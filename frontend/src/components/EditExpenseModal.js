@@ -119,7 +119,7 @@ export default function EditExpenseModal({ id, expenseName, categoryId, date, am
                                     {
                                         required: true,
                                         minLength: 3,
-                                        maxLength: 10
+                                        maxLength: 20
                                     })
                                 }
                                 type="text"

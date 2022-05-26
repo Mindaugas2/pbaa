@@ -233,7 +233,7 @@ export default function Income() {
                 className="input-group my-3"
               >
                 <input
-                  {...register("incomeName", { required: true, minLength: 3, maxLength: 10 })}
+                  {...register("incomeName", { required: true, minLength: 3, maxLength: 20 })}
                   type="text"
                   className="form-control add__description"
                   placeholder="Aprašymas"
@@ -253,7 +253,7 @@ export default function Income() {
                 <input
                   {...register("amount", {
                     required: true,
-                    min: 1,
+                    min: 0.01,
                   })}
                   type="number"
                   className="form-control add__value"
