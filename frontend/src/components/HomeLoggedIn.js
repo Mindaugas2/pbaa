@@ -34,7 +34,7 @@ export default function HomeLoggedIn() {
     useEffect(() => {
         const calculateSavings = () => {
             if ((incomeSum - expenseSum) > 0) {
-                setSavings(incomeSum - expenseSum)
+                setSavings(Math.round(((incomeSum - expenseSum) + Number.EPSILON) * 100) / 100)
             } else
                 setSavings(0);
         };
@@ -230,7 +230,7 @@ export default function HomeLoggedIn() {
                 </div>
             </div>
             <div className="container">
-                <div className="col-6" style={{paddingLeft:0}}>
+                <div className="col-6" style={{ paddingLeft: 0 }}>
 
                     <div>
                         <p>Mėnesio balansas</p>
@@ -240,8 +240,8 @@ export default function HomeLoggedIn() {
                         <p>Pajamų likutis išlaidoms, %</p>
                         <ProgressBar completed={
                             Math.round((savings) / ((incomeSum)) * 100)
-                        } maxCompleted={100} 
-                        bgColor="#008F8C"
+                        } maxCompleted={100}
+                            bgColor="#008F8C"
 
                         />
                     </div>
