@@ -20,8 +20,13 @@ export default function HomeLoggedIn() {
     const chartIncomeNames = Object.keys(incomes);
 
     const chartStatisticsAmount = statistics.map(x => x.amount);
-    const expenseSum = chartStatisticsAmount.reduce((sum,  a ) => sum + a, 0);
+    const expenseSum = chartStatisticsAmount.reduce((sum, a) => sum + a, 0);
     const chartStatisticsNames = statistics.map(x => x.category.name);
+
+    // const chartLimitAmount = statistics.map(x => x.limit);
+    // const chartLimitNames = statistics.map(x => x.category.name);
+    const chartExpenseAmount = statistics.map(x => x.amount);
+    const chartExpenseNames = statistics.map(x => x.category.name);
 
     const chartLimitAmount = limits.map(x => x.amount);
     const chartLimitNames = limits.map(x => x.expensesCategory.name);
@@ -30,8 +35,8 @@ export default function HomeLoggedIn() {
         const calculateSavings = () => {
             if ((incomeSum - expenseSum) > 0) {
                 setSavings(incomeSum - expenseSum)
-            } else 
-            setSavings(0);
+            } else
+                setSavings(0);
         };
         calculateSavings();
     }, [incomeSum, expenseSum]);
@@ -114,7 +119,7 @@ export default function HomeLoggedIn() {
 
         fetchData();
     }, []);
-    
+
 
     ChartJS.register(ArcElement, Tooltip, Legend);
     const data = {
@@ -162,7 +167,7 @@ export default function HomeLoggedIn() {
         ],
     };
 
-    
+
     useEffect(() => {
         const fetchLimits = async () => {
             const response = await fetch(`http://localhost:8080/api/limits/user/${currentUser.id}`,
@@ -214,59 +219,89 @@ export default function HomeLoggedIn() {
         //         </div>
         //     </div>
         // </>
-<>
-<div className="container-fluid budget__expense">
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <h2>Statistika</h2>
+        <>
+            <div className="container-fluid budget__expense">
+                <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <h2>Statistika</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-        <div className="container">
+            <div className="container">
+                <div className="col-6">
+
+                    <div>
+                        <p>Mėnesio balansas</p>
+                        <p>Pajamos {incomeSum} EUR</p>
+                        <p>Išlaidos {expenseSum} EUR</p>
+                        <p>Likutis {savings} EUR</p>
+                        <p>Pajamų likutis išlaidoms, %</p>
+
+                        <ProgressBar completed={
+                            Math.round((savings) / ((incomeSum)) * 100)
+                        } maxCompleted={100} />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col">
+                        <p>Šio mėnesio pajamos:</p>
+
+                        <div className="col-6">
+                            <Doughnut
+                                data={data}
+                                width={400}
+                                height={400}
+                                options={{ maintainAspectRatio: false }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col">
+                        <p>Šio mėnesio Išlaidos:</p>
+
+                        <div className="col-6">
+                            <Doughnut
+                                data={expenseData}
+                                width={400}
+                                height={400}
+                                options={{ maintainAspectRatio: false }}
+                            />
+                        </div>
+
+                    </div>
+                </div>
+                {/* <div className="container">
+
+                    <div className="row">
+                        <div className="col">
+                            <p>Šio mėnesio pajamos:</p>
+
                             <div className="col-6">
+                                <Doughnut
+                                    data={data}
+                                    width={400}
+                                    height={400}
+                                    options={{ maintainAspectRatio: false }}
+                                />
+                            </div>
+                        </div>
 
-             <div>
-                                    <p>Mėnesio balansas</p>
-                                    <p>Pajamos {incomeSum} EUR</p>
-                                    <p>Išlaidos {expenseSum} EUR</p>
-                                    <p>Likutis {savings} EUR</p>
-                                    <p>Pajamų likutis išlaidoms, %</p>
+                        <div className="col">
+                            <p>Šio mėnesio Išlaidos:</p>
 
-                                    <ProgressBar completed={
-                                        Math.round((savings) / ((incomeSum)) * 100)
-                                    } maxCompleted={100}/>
-                                </div>
-                                </div>
+                            <div className="col-6">
+                                <Doughnut
+                                    data={expenseData}
+                                    width={400}
+                                    height={400}
+                                    options={{ maintainAspectRatio: false }}
+                                />
+                            </div>
 
-            <div className="row">
-                <div className="col">
-                <p>Šio mėnesio pajamos:</p>
-
-                <div className="col-6">
-                    <Doughnut
-                        data={data}
-                        width={400}
-                        height={400}
-                        options={{ maintainAspectRatio: false }}
-                    />
-                </div>
-                </div>
-
-                <div className="col">
-                <p>Šio mėnesio Išlaidos:</p>
-
-                <div className="col-6">
-                    <Doughnut
-                        data={expenseData}
-                        width={400}
-                        height={400}
-                        options={{ maintainAspectRatio: false }}
-                    />
-                                    </div>
-
-                </div>
+                        </div> */}
 
                 {/* <p>Limitai:</p>
 
@@ -284,20 +319,30 @@ export default function HomeLoggedIn() {
                     {statistics.map((categoryStatistics) => {
                         if (categoryStatistics.limit !== 0) {
                             return (
-                            
                                 <div>
-                                    <p>{categoryStatistics.category.name}</p>
-                                    <ProgressBar completed={
-                                        
-                                        Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100)
-                                        } maxCompleted={100}/>
+                                    <div className='row'>
+                                        <div className='col-8'>
+                                            <p className='mb-pb-fix'>{categoryStatistics.category.name}</p>
+                                        </div>
+                                        <div className='col-4'>
+                                            <p style={{ textAlign: "end" }} className="mb-pb-fix">({categoryStatistics.limit}€)</p>
+                                        </div>
+                                    </div>
+
+                                    <ProgressBar
+                                        completed={Math.round((categoryStatistics.amount) / (categoryStatistics.limit) * 100)}
+                                        maxCompleted={100}
+                                        bgColor="#008F8C"
+                                    />
                                 </div>
                             )
-                        } 
+                        }
                     })}
                 </div>
+
+                {/* </div> */}
+                {/* </div> */}
             </div>
-        </div>
-</>
+        </>
     );
 }

@@ -14,6 +14,7 @@ import Table from "react-bootstrap/Table";
 import { Pagination } from "react-bootstrap";
 import ReactCSV from "./ReactCSV";
 import Accordion from 'react-bootstrap/Accordion'
+import "./Pagination.css";
 
 // This code copypasted from: https://codepen.io/fido123/pen/xzvxNw
 // JavaScript is not included in this code, only html and css
@@ -199,8 +200,8 @@ export default function Expense() {
   };
 
   const handlePageClick = async (data) => {
-    
-    
+
+
     let currentPage = data.selected;
 
     const expenseFormServer = await fetchExpense(currentPage);
@@ -212,14 +213,14 @@ export default function Expense() {
 
 
   //irasu filtravimas
-  
+
   let today2 = new Date();
   const dd2 = String(today2.getDate()).padStart(2, "0") - 1;
   const mm2 = String(today2.getMonth() + 1).padStart(2, "0");
   const yyyy2 = today2.getFullYear();
   today2 = yyyy2 + "-" + mm2 + "-" + dd2;
-  
-  
+
+
   let date2 = today; // todays date
   let date1 = today2; // yesterdays date
 
@@ -263,8 +264,8 @@ export default function Expense() {
 
     return data.content;}
   };
-  
-  
+
+
 
   const onSubmit2 = async (date1, date2, category, currentPage) => {
     const res = await fetch(
@@ -278,11 +279,11 @@ export default function Expense() {
       }
     );
     const data = await res.json();
-      console.log(data.content);
+    console.log(data.content);
     return data.content;
   };
 
-  const fetchExpenseWithCategory= async (category, currentPage) => {
+  const fetchExpenseWithCategory = async (category, currentPage) => {
     const res = await fetch(
       `http://localhost:8080/api/expense/userCategory?category=${category}&offset=${currentPage}&pageSize=${limit}`,
       {
@@ -320,7 +321,7 @@ export default function Expense() {
           </div>
         </div>
       </div>
-      
+
       <div className="bottom ">
         <div className="container">
           <div >
@@ -341,29 +342,29 @@ export default function Expense() {
                   placeholder="Aprašymas"
                 />
 
-                <input
-                  {...register("date", {
-                    value: today,
-                    required: true,
-                    max: today,
-                  })}
-                  type="date"
-                  className="form-control add__date"
-                  placeholder="Data"
-                />
+                        <input
+                          {...register("date", {
+                            value: today,
+                            required: true,
+                            max: today,
+                          })}
+                          type="date"
+                          className="form-control add__date"
+                          placeholder="Data"
+                        />
 
-                <select
-                  {...register("categoryId", {
-                    required: true,
-                  })}
-                  className="form-control add__description"
-                  type="text"
-                >
-                  <option value={""}>--Pasirinkite kategoriją--</option>
-                  {allCategory.map((option) => (
-                    <option value={option.id}>{option.name}</option>
-                  ))}
-                </select>
+                        <select
+                          {...register("categoryId", {
+                            required: true,
+                          })}
+                          className="form-control add__description"
+                          type="text"
+                        >
+                          <option value={""}>--Pasirinkite kategoriją--</option>
+                          {allCategory.map((option) => (
+                            <option value={option.id}>{option.name}</option>
+                          ))}
+                        </select>
 
                 <input
                   {...register("amount", {
@@ -376,18 +377,16 @@ export default function Expense() {
                   step="0.01"
                 />
 
-                <div className="input-group-append">
-                  <button className="btn" type="submit">
-                    <FontAwesomeIcon
-                      icon={faCirclePlus}
-                      className="add__btn__expense"
-                    />
-                  </button>
+                        <div className="input-group-append">
+                          <button className="btn" type="submit">
+                            <FontAwesomeIcon
+                              icon={faCirclePlus}
+                              className="add__btn__expense"
+                            />
+                          </button>
+                        </div>
+                      </form>
                 </div>
-              </form>
-              
-            </div>
-
             <div className="row ">
               <div className="col-sm-3 col-3">
                 {errors?.expenseName?.type === "required" && (
@@ -648,6 +647,8 @@ export default function Expense() {
 
             {/* pagination for the user items */}
 
+
+
             <ReactPaginate
               previousLabel={"previous"}
               nextLabel={"next"}
@@ -668,10 +669,11 @@ export default function Expense() {
               activeClassName={"active"}
             />
 
+
           </div>
           {/* This section is CSV export button */}
-          <button type="submit" className="btn btn-lg" style={{ float: "right", backgroundColor: "#74bdee" }}>
-            <ReactCSV allExpenses = {allExpense2}/>
+          <button type="submit" className="btn btn-lg" style={{ float: "right", backgroundColor: "#008F8C" }}>
+            <ReactCSV allExpenses={allExpense2} />
           </button>
 
         </div>
