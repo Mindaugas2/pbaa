@@ -179,7 +179,7 @@ export default function Users() {
   return (
     <>
       {/* <div className="bottom mt-4"> */}
-      <div className="container-fluid budget__income">
+      <div className="container-fluid budget__income sticky-config">
         <div className="container">
           <div className="row">
             <div className="col">

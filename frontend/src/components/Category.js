@@ -126,20 +126,16 @@ export default function Category() {
     return (
         <>
 
-            <div className="container-fluid budget__expense">
+            <div className="container-fluid budget__expense sticky-config">
                 <div className="container">
-
                     <div className="row">
                         <div className="col-6 ">
                             <h2>
                                 Išlaidų kategorijos: {categoryCount}
                             </h2>
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
 
 
@@ -182,7 +178,7 @@ export default function Category() {
                             <div className="container expense__list">
                                 <Table hover>
                                     <thead>
-                                        
+
                                     </thead>
                                     <tbody>
                                         {/* Display categories on the page */}
@@ -218,13 +214,13 @@ export default function Category() {
                                                 </tr>
                                             )
                                         })}
-                                        </tbody>
-                                        <DeleteModal
-                                            showModal={displayDeleteModal}
-                                            hideModal={hideConfirmationModal}
-                                            confirmModal={removeCategory}
-                                            id={deleteId}
-                                        />
+                                    </tbody>
+                                    <DeleteModal
+                                        showModal={displayDeleteModal}
+                                        hideModal={hideConfirmationModal}
+                                        confirmModal={removeCategory}
+                                        id={deleteId}
+                                    />
                                 </Table>
                             </div>
                         </div>

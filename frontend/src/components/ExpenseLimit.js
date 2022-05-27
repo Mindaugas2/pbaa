@@ -211,7 +211,7 @@ export default function ExpenseLimit() {
     <>
 
 
-      <div className="container-fluid budget__expense">
+      <div className="container-fluid budget__expense sticky-config">
         <div className="container">
           <div className="row">
             <div className="col">

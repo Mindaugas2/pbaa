@@ -11,6 +11,7 @@ import DeleteModal from './DeleteModal';
 import ReactPaginate from 'react-paginate';
 import Table from 'react-bootstrap/Table';
 import Pagination from '../components/Pagination';
+import uuid from "react-uuid";
 
 // This code copypasted from: https://codepen.io/fido123/pen/xzvxNw
 // JavaScript is not included in this code, only html and css
@@ -141,20 +142,20 @@ export default function Income() {
   const incomeSum = allIncome2.reduce((n, { amount }) => n + amount, 0);
   useEffect(() => {
     const fetchData = async () => {
-        const response = await fetch(`http://localhost:8080/api/income/user/${currentUser.id}`,
-            {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${currentUser.accessToken}`
-                }
-            });
-        const data = await response.json();
-        setAllIncome2(data);
+      const response = await fetch(`http://localhost:8080/api/income/user/${currentUser.id}`,
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${currentUser.accessToken}`
+          }
+        });
+      const data = await response.json();
+      setAllIncome2(data);
     };
 
     fetchData();
-}, [forceRender]);
+  }, [forceRender]);
 
   //pagination..........................
 
@@ -214,7 +215,7 @@ export default function Income() {
 
   return (
     <>
-      <div className="container-fluid budget__income">
+      <div className="container-fluid budget__income sticky-config">
         <div className="container">
           <div className="row">
             <div className="col">
@@ -247,7 +248,7 @@ export default function Income() {
                   })}
                   type="date"
                   className="form-control add__date"
-                  // placeholder="Data"
+                // placeholder="Data"
                 />
 
                 <input
@@ -280,7 +281,7 @@ export default function Income() {
                 {errors?.incomeName?.type === "minLength" && (
                   <p>Aprašymas turi būti bent 3 simbolių ilgio</p>
                 )}
-                 {errors?.incomeName?.type === "maxLength" && (
+                {errors?.incomeName?.type === "maxLength" && (
                   <p>Aprašymas negali būti ilgesnis negu 10 simbolių</p>
                 )}
               </div>
@@ -362,7 +363,7 @@ export default function Income() {
                       //     </div>
                       // </div>
 
-                      <tr key={income.id}>
+                      <tr key={uuid()}>
                         <td>{income.incomeName}&nbsp;</td>
                         <td>{income.date}&nbsp;</td>
                         <td>{income.amount}&euro;&nbsp;</td>
@@ -429,9 +430,9 @@ export default function Income() {
               breakLinkClassName={"page-link"}
               activeClassName={"active"}
             /> */}
-            <Pagination 
+            <Pagination
               pageCount={pageCount}
-              onPageChange={handlePageClick}/>
+              onPageChange={handlePageClick} />
           </div>
         </div>
         {/* </div> */}

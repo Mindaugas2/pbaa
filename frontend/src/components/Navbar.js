@@ -106,7 +106,7 @@ export default function Navbar() {
                                                 Išlaidos
                                             </NavLink>
                                         </li>
-                                        <li>
+                                        <li id="button-hover">
                                             <NavLink to={"/limits"}
                                                 className={({ isActive }) => (isActive ? 'active' : 'inactive')} >
                                                 Limitai
