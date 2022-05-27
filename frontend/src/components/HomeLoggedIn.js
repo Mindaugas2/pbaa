@@ -6,7 +6,7 @@ import AuthService from "../services/auth.service";
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import ProgressBar from "@ramonak/react-progress-bar";
-import { right } from 'glamor';
+import uuid from 'react-uuid'
 
 export default function HomeLoggedIn() {
     const currentUser = AuthService.getCurrentUser();
@@ -307,7 +307,7 @@ export default function HomeLoggedIn() {
                                         {statistics.map((categoryStatistics) => {
                                             if (categoryStatistics.limit !== 0) {
                                                 return (
-                                                    <div>
+                                                    <div key={uuid()}>
                                                         <div className='row'>
                                                             <div className='col-8'>
                                                                 <p className='mb-pb-fix'>{categoryStatistics.category.name}</p>

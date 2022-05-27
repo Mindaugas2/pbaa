@@ -11,6 +11,7 @@ import DeleteModal from './DeleteModal';
 import ReactPaginate from 'react-paginate';
 import Table from 'react-bootstrap/Table';
 import Pagination from '../components/Pagination';
+import uuid from "react-uuid";
 
 // This code copypasted from: https://codepen.io/fido123/pen/xzvxNw
 // JavaScript is not included in this code, only html and css
@@ -362,7 +363,7 @@ export default function Income() {
                       //     </div>
                       // </div>
 
-                      <tr key={income.id}>
+                      <tr key={uuid()}>
                         <td>{income.incomeName}&nbsp;</td>
                         <td>{income.date}&nbsp;</td>
                         <td>{income.amount}&euro;&nbsp;</td>

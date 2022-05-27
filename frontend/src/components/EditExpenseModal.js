@@ -147,19 +147,19 @@ export default function EditExpenseModal({ id, expenseName, categoryId, date, am
                             {errors?.date?.type === "max" && <p>Senesnių nei šiandien įrašų negali būti</p>}
 
                             <select {...register("categoryId",
-                                        {
-                                            required: true,
-                                        })
-                                    }
-                                    className="form-control add__description"
-                                    type="text"
-                                    placeholder="Kategorija"
-                                    defaultValue={categoryId}
-                                    >
-                                    {allCategory.map((option) => (
+                                {
+                                    required: true,
+                                })
+                            }
+                                className="form-control add__description"
+                                type="text"
+                                placeholder="Kategorija"
+                                defaultValue={categoryId}
+                            >
+                                {allCategory.map((option) => (
                                     <option value={option.id}>{option.name}</option>
-                                         ))}
-                                </select>
+                                ))}
+                            </select>
                             <input
                                 {...register("amount",
                                     {
@@ -186,7 +186,7 @@ export default function EditExpenseModal({ id, expenseName, categoryId, date, am
                                 </button>
                                 <button
                                     type="submit"
-                                    className="btn btn-primary"                                  
+                                    className="btn btn-primary"
                                 >
                                     Išsaugoti
                                 </button>

@@ -15,6 +15,7 @@ import { Pagination } from "react-bootstrap";
 import ReactCSV from "./ReactCSV";
 import Accordion from 'react-bootstrap/Accordion'
 import "./Pagination.css";
+import uuid from "react-uuid";
 
 // This code copypasted from: https://codepen.io/fido123/pen/xzvxNw
 // JavaScript is not included in this code, only html and css
@@ -594,7 +595,7 @@ export default function Expense() {
                       //     </div>
                       //   </div>
                       // </div>
-                      <tr key={expense.id}>
+                      <tr key={uuid()}>
                         <td>{expense.expenseName}&nbsp;</td>
                         <td>{expense.date}&nbsp;</td>
                         <td>{expense.expensesCategory.name}&nbsp;</td>
